@@ -7,21 +7,30 @@
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
+#include "robot-config.h"
+#include "auton/auton.h"
 
 using namespace vex;
 
-// A global instance of vex::brain used for printing to the V5 brain screen
-vex::brain       Brain;
+competition Competition;
+ 
+void autonomous() {
+    timer benchmarkTimer;
 
-// define your global instances of motors and other devices here
+}
 
+void drivercontrol() {
+
+}
 
 int main() {
 
-    Brain.Screen.printAt( 10, 50, "Hello V6" );
+    Competition.autonomous(autonomous);
+    Competition.drivercontrol(drivercontrol);
+    //Brain.Screen.printAt( 10, 50, "Hello V6" );
     
     while(1) {
-        
+        //Motor1.spin(forward, 50, percent);
         // Allow other tasks to run
         this_thread::sleep_for(10);
     }
