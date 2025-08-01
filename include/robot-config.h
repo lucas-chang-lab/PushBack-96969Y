@@ -3,6 +3,7 @@
 using namespace vex;
 
 extern brain Brain;
+extern controller Controller1;
 extern motor LeftMotorA;
 extern motor LeftMotorB;
 extern motor LeftMotorC;

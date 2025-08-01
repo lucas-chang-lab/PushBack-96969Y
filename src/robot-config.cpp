@@ -1,9 +1,10 @@
 #include "vex.h"
 #include "robot-config.h"
+
 using namespace vex;
 
 brain Brain;
-
+controller Controller1;
 motor LeftMotorA(PORT1, ratio6_1, true);
 motor LeftMotorB(PORT18, ratio6_1, true);
 motor LeftMotorC(PORT17, ratio6_1);
