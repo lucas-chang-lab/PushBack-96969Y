@@ -1,9 +1,8 @@
 #include "Mechanics/botDrive.h"
-#include "Utilities/robotInfo.h"
+
 #include "main.h"
 
 namespace {
-	using namespace botinfo;
 
 	void controlArcade();
 	void drive(double forwardPct, double rotatePct);
