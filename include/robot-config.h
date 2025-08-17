@@ -22,3 +22,5 @@ extern inertial InertialSensor;
 
 extern rotation LookRotation;
 extern rotation RightRotation;
+
+extern motor intakeMotor;
