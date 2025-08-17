@@ -6,3 +6,5 @@
 #include <vector> 
 
 extern competition Competition;
+
+extern timer drivingTimer;
