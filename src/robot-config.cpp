@@ -3,6 +3,8 @@
 using namespace vex;
 
 brain Brain;
+controller Controller1(primary);
+controller Controller2(partner);
 
 motor LeftMotorA(PORT1, ratio6_1, true);
 motor LeftMotorB(PORT18, ratio6_1, true);
@@ -16,3 +18,4 @@ motor_group LeftRightMotors(LeftMotorA, LeftMotorB, LeftMotorC, RightMotorA, Rig
 
 
 inertial InertialSensor(PORT2); 
+

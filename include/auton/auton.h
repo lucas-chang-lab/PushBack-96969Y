@@ -12,6 +12,8 @@ namespace auton {
     void setAutonRunType(int allianceColor, autonomousType autonType);
     void showAutonRunType();
     autonomousType getAutonRunType();
+    bool isUserRunningAuton();
     void runAutonomous();
+    void autonSkillsIntro();
 }
 

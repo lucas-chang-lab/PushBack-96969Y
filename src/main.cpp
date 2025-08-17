@@ -8,30 +8,60 @@
 /*----------------------------------------------------------------------------*/
 #include "vex.h"
 #include "robot-config.h"
+#include "controls.h"
 #include "auton/auton.h"
 
 using namespace vex;
 
 competition Competition;
- 
+timer drivingTimer;
+
+void pre_auton() {
+    controls::startThreads();
+    controls::preauton();
+    
+
+    auton::showAutonRunType();
+}
+
 void autonomous() {
     timer benchmarkTimer;
 
+    auton::runAutonomous();
 }
 
-void drivercontrol() {
+void userRunAutonomous() {
+    task::sleep(1500);
+    
+    autonomous();
+}
 
+void usercontrol() {
+    drivingTimer.reset();
+
+    if (auton::isUserRunningAuton()) {
+        userRunAutonomous();
+    }
+
+    controls::setUpKeybinds();
+    
+    controls::resetStates();
+
+    while(1) {
+        controls::doControls();
+
+        wait(20, msec);
+    }
 }
 
 int main() {
 
     Competition.autonomous(autonomous);
-    Competition.drivercontrol(drivercontrol);
+    Competition.drivercontrol(usercontrol);
     //Brain.Screen.printAt( 10, 50, "Hello V6" );
-    
+    pre_auton();
+
     while(1) {
-        //Motor1.spin(forward, 50, percent);
-        // Allow other tasks to run
-        this_thread::sleep_for(10);
+        wait(100, msec);
     }
 }

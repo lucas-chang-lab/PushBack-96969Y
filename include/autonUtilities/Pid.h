@@ -1,9 +1,9 @@
 #pragma once
 #include "vex.h"
 
-class Pid {
+class PIDControl {
 public:
-    Pid(double kP = 0, double kI = 0, double kD = 0, double settleRange = 5, double settleFrameCount = 10);
+    PIDControl(double kP = 0, double kI = 0, double kD = 0, double settleRange = 5, double settleFrameCount = 10);
     void computeFromError(double error);
     void setError(double errorI);
     double getOutput(bool useP = true, bool useI = true, bool useD = true);

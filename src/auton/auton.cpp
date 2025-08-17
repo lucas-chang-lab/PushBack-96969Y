@@ -12,10 +12,14 @@ namespace {
     void runAutonSkill();
     void runDrivingSkill();
     void runTestAuton();
+
+    bool userRunningAutonomous = false;
+    autonomousType auton_runType = autonomousType::drivingSkill;
+    int auton_allianceId;
 }
 
 namespace auton {
-    void setAutonRunType(int allianceColor, autonomousType autonType) {
+    void setAutonRunType(int allianceId, autonomousType autonType) {
         currentAutonType = autonType;
         switch (currentAutonType) {
             case redUp:
@@ -40,16 +44,22 @@ namespace auton {
                 Brain.Screen.print("Auton Type: Test");
                 break;
         }
+        auton_runType = autonType;
+        auton_allianceId = allianceId;
     }
+
     void showAutonRunType() {
-        Brain.Screen.clearScreen();
-        Brain.Screen.setCursor(1, 1);
-        Brain.Screen.print("Current Auton Type: %d", getAutonRunType());
+        setAutonRunType(auton_allianceId, auton_runType);
     }
 
     autonomousType getAutonRunType() {
-        return currentAutonType;
+        return auton_runType;
     }
+
+    bool isUserRunningAuton() {
+        return userRunningAutonomous;
+    }
+
     void runAutonomous() {
         switch (currentAutonType) {
             case redUp:
