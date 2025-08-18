@@ -4,7 +4,7 @@
 ## Configuration
   Modify robot configurations in [`robot-config.cpp`](./src/robot-config.cpp).
   
-  Modify robot specifications in [`robotInfo.cpp`](./src/Utilities/robotInfo.h).
+  Modify robot specifications in [`robotInfo.cpp`](.src/Utilities/robotInfo.cpp).
 
 ## About
   Our main control program is organized into the categories [`Autonomous`](src/auton), [`Controller`](src/controls.cpp), and [`Mechanics`](src/Mechanics).
