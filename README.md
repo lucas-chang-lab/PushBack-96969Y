@@ -1,11 +1,11 @@
-VEX Highstakes
+# VEX PushBack
   The repository for team 96969Y's robot program in 2025-26 VEX Robotics - PushBack.
 
-Configuration
+## Configuration
   Modify robot configurations in robot-config.cpp.
   Modify robot specifications in robotInfo.cpp.
 
-About
+## About
   Our main control program is organized into the categories Autonomous, Controller, and Mechanics.
 
   Our utility functions are organized into AutonUtilities and Utilities.
@@ -14,8 +14,9 @@ About
 
   Our team id is 96969Y, and our website is here.
 
-Extra
-  Resources
+# Extra
+
+## Resources
   Here's some tools that we used during our robot's development.
 
   VEX Path Planner (Scratch tool) for path planning and autonomous
