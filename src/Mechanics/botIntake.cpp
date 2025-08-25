@@ -24,7 +24,7 @@ namespace botIntake
 
     void preauton()
     {
-        IntakeMotor.stop(hold);
+        intakeMotor.stop(hold);
     }
 
     void setState(int state, double delaySec)
@@ -70,19 +70,19 @@ namespace botIntake
             switch (state)
             {
             case 1:
-                IntakeMotor.spin(fwd, 11, volt);
+                intakeMotor.spin(fwd, 11, volt);
                 break;
             case -1:
-                IntakeMotor.spin(reverse, 11, volt);
+                intakeMotor.spin(reverse, 11, volt);
                 break;
             default:
-                IntakeMotor.stop(hold);
+                intakeMotor.stop(hold);
                 break;
             }
         }
         else
         {
-            IntakeMotor.stop(hold);
+            intakeMotor.stop(hold);
         }
     }
 

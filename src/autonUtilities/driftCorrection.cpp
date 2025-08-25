@@ -1,4 +1,4 @@
-#include "autonUtilities/driftCorrection.h";
+#include "autonUtilities/driftCorrection.h"
 
 DriftCorrection::DriftCorrection(inertial &sensor, double perClockwiseRevDrift, 
     double perCounterClockwiseRevDrift)

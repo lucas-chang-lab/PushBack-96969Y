@@ -1,10 +1,11 @@
 #include "AutonUtilities/Pid.h"
 #include "Mechanics/botDrive.h"
 #include "Utilities/robotInfo.h"
-#include "main.h"
+#include "main.h"   
 
 namespace {
     using namespace botinfo;
+    using namespace std;
     using botdrive::controlType;
 
     void controlArcadeTwoStick();
