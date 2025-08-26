@@ -1,12 +1,15 @@
 #include "controls.h"
 #include "Mechanics/botDrive.h"
-
+#include "Mechanics/botIntake.h"
 #include "main.h"
 
 
 namespace controls {
     void startThreads() {
-
+        task intakeThread([]() -> int {
+            botIntake::runThread();
+            return 1;
+        });
     }
 
     void setUpKeybinds() {
@@ -39,7 +42,7 @@ namespace controls {
 
     void preauton() {
         botdrive::preauton();
-
+        controls::startThreads();
     }
 
 
@@ -49,5 +52,8 @@ namespace controls {
 
     void doControls() {
         botdrive::control();
+        botIntake::control(
+            (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
+        );
     }
 }

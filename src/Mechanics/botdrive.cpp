@@ -92,8 +92,8 @@ namespace {
     void drive(double initLeftPct, double initRightPct, double initPolarRotatePct, double rotateCenterOffsetIn) {
         double leftRotateRadiusIn = halfRobotLengthIn + rotateCenterOffsetIn;
         double rightRotateRadiusIn = halfRobotLengthIn - rotateCenterOffsetIn;
-        double leftPolarRotatePct = initLeftPct * (leftRotateRadiusIn / halfRobotLengthIn);
-        double rightPolarRotatePct = initRightPct * (rightRotateRadiusIn / halfRobotLengthIn);
+        double leftPolarRotatePct =  initPolarRotatePct * (leftRotateRadiusIn / halfRobotLengthIn);
+        double rightPolarRotatePct = initPolarRotatePct * (rightRotateRadiusIn / halfRobotLengthIn);
 
         double leftPct = initLeftPct + leftPolarRotatePct;
         double rightPct = initRightPct - rightPolarRotatePct;
@@ -101,16 +101,17 @@ namespace {
         double scaleFactor = maxDriveVelocityPct / fmax(maxDriveVelocityPct, fmax(abs(leftPct), fabs(rightPct)));
         leftPct *= scaleFactor;
         rightPct *= scaleFactor;
-
-        if (fabs(leftPct) < 5) {
-            LeftMotors.stop();
-        } else {
-            LeftMotors.spin(fwd, 12.0 * (leftPct / 100.0), volt);
-        }
         if (fabs(rightPct) < 5) {
-            RightMotors.stop();
+            RightMotors.stop(brake);
         } else {
             RightMotors.spin(fwd, 12.0 * (rightPct / 100.0), volt);
         }
+
+        if (fabs(leftPct) < 5) {
+            LeftMotors.stop(brake);
+        } else {
+            LeftMotors.spin(fwd, 12.0 * (leftPct / 100.0), volt);
+        }
+        
     }
 }

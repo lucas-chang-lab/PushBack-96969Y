@@ -9,7 +9,7 @@
 #include "vex.h"
 #include "robot-config.h"
 #include "controls.h"
-#include "auton/auton.h"
+#include "Auton/auton.h"
 
 using namespace vex;
 
@@ -25,6 +25,7 @@ void pre_auton() {
 }
 
 void autonomous() {
+    Brain.Screen.printAt(10, 50, "autonomous" );
     timer benchmarkTimer;
 
     auton::runAutonomous();
@@ -37,15 +38,16 @@ void userRunAutonomous() {
 }
 
 void usercontrol() {
+    Brain.Screen.printAt(10, 50, "usercontrol" );
     drivingTimer.reset();
-
+/*
     if (auton::isUserRunningAuton()) {
         userRunAutonomous();
-    }
+    }*/
 
     controls::setUpKeybinds();
     
-    controls::resetStates();
+    //controls::resetStates();
 
     while(1) {
         controls::doControls();
@@ -56,11 +58,11 @@ void usercontrol() {
 
 int main() {
 
-    Competition.autonomous(autonomous);
+    //Competition.autonomous(autonomous);
     Competition.drivercontrol(usercontrol);
-    //Brain.Screen.printAt( 10, 50, "Hello V6" );
-    pre_auton();
-
+    
+    //pre_auton();
+    Brain.Screen.printAt( 10, 50, "Hello V6" );
     while(1) {
         wait(100, msec);
     }

@@ -9,7 +9,6 @@ namespace
 
 namespace botIntake
 {
-
     int _taskState = 0; // 0 = stop, 1 = intake, -1 = outtake
     double _taskDelay = 0;
 
@@ -17,8 +16,7 @@ namespace botIntake
     {
         while (true)
         {
-            control(_taskState);
-            task::sleep(20);
+            
         }
     }
 
@@ -48,18 +46,16 @@ namespace botIntake
             task::sleep(taskDelay * 1000);
 
             control(taskState);
-            return 1; });
+            return 1; 
+        });
     }
 
     void switchState()
     {
-        if (_taskState == 0)
-        {
-            setState(1, 0);
-        }
-        else
-        {
-            setState(0, 0);
+        if (_taskState == 0) {
+            setState(1);
+        } else {
+            setState(0);
         }
     }
 
