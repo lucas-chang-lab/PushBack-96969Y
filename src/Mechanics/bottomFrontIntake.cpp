@@ -53,10 +53,10 @@ namespace bottomFrontIntake {
         if (canControl()) {
             switch (state) {
             case 1:
-                intakeMotor2.spin(fwd, 11, volt);
+                intakeMotor2.spin(fwd, 12, volt);
                 break;
             case -1:
-                intakeMotor2.spin(reverse, 11, volt);
+                intakeMotor2.spin(reverse, 12, volt);
                 break;
             default:
                 intakeMotor2.stop(coast);

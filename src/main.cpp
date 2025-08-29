@@ -41,10 +41,10 @@ void usercontrol() {
     Brain.Screen.printAt(10, 50, "usercontrol" );
     drivingTimer.reset();
 
-    if (auton::isUserRunningAuton()) {
+    /*if (auton::isUserRunningAuton()) {
         Brain.Screen.printAt(10, 80, "here" );
         userRunAutonomous();
-    }
+    }*/
 
     controls::setUpKeybinds();
     controls::resetStates();

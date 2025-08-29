@@ -54,10 +54,10 @@ namespace backIntake {
         if (canControl()) {
             switch (state) {
             case 1:
-                intakeMotor.spin(fwd, 11, volt);
+                intakeMotor.spin(fwd, 12, volt);
                 break;
             case -1:
-                intakeMotor.spin(reverse, 11, volt);
+                intakeMotor.spin(reverse, 12, volt);
                 break;
             default:
                 intakeMotor.stop(coast);

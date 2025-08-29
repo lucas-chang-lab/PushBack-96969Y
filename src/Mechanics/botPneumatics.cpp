@@ -1,8 +1,8 @@
-#include "Mechanics/botArm.h"
+#include "Mechanics/botPneumatics.h"
 #include "main.h"
 
-namespace botArm {
-	void setLiftState(bool state, double delaySec) {
+namespace botPneumatics {
+	void setState(bool state, double delaySec) {
 		// Check for instant set
 		if (delaySec <= 1e-9) {
 			// Set state here
@@ -31,6 +31,10 @@ namespace botArm {
 	}
 
 	void switchState() {
-		// setState(!IntakeLiftPneumatic.value());
+		setState(!botArmPneumatics.value());
+	}
+
+	void preauton() {
+		botArmPneumatics.set(0);
 	}
 }

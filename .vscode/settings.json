@@ -64,6 +64,8 @@
 		"chrono": "cpp",
 		"cmath": "cpp",
 		"ratio": "cpp",
-		"type_traits": "cpp"
+		"type_traits": "cpp",
+		"array": "cpp",
+		"vector": "cpp"
 	}
 }

@@ -28,5 +28,5 @@ rotation RightRotation(PORT19);
 
 triport Expander1(PORT18);
 encoder LookEncoder(Expander1.C);
-inertial InertialSensor(PORT2); 
+inertial InertialSensor(PORT6); 
 

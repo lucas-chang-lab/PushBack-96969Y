@@ -54,10 +54,10 @@ namespace topFrontIntake {
             switch (state)
             {
             case 1:
-                intakeMotor3.spin(fwd, 11, volt);
+                intakeMotor3.spin(fwd, 12, volt);
                 break;
             case -1:
-                intakeMotor3.spin(reverse, 11, volt);
+                intakeMotor3.spin(reverse, 12, volt);
                 break;
             default:
                 intakeMotor3.stop(coast);

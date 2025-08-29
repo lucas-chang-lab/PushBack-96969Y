@@ -16,7 +16,7 @@ namespace {
     void runDrivingSkill();
     void runTestAuton();
 
-    bool userRunningAutonomous = true;
+    bool userRunningAutonomous = false;
 }
 
 namespace auton {
@@ -90,20 +90,34 @@ namespace auton {
 
 namespace {
     void runAutonRedUp() {
-        Brain.Screen.printAt(10, 70, "Running Red Up Auton");
-        driveDistanceTiles(1.0, 100.0);
+        setRotation(0.0);
+        //driveDistanceTiles(1.5, 100.0);
+        turnToAngle(20.0);
+        //driveDistanceTiles(1.0, 100.0);
+        //turnToAngle(-120);
     }
 
     void runAutonRedDown() {
-        // Implement Red Down autonomous logic
-    }
+        setRotation(0.0);
+        driveDistanceTiles(1.5, 100.0);
+        turnToAngle(60.0);
+        driveDistanceTiles(1.0, 100.0);
+        turnToAngle(-120);    }
 
     void runAutonBlueUp() {
-        // Implement Blue Up autonomous logic
+        setRotation(0.0);
+        driveDistanceTiles(1.5, 100.0);
+        turnToAngle(60.0);
+        driveDistanceTiles(1.0, 100.0);
+        turnToAngle(-120);
     }
 
     void runAutonBlueDown() {
-        // Implement Blue Down autonomous logic
+        setRotation(0.0);
+        driveDistanceTiles(1.5, 100.0);
+        turnToAngle(60.0);
+        driveDistanceTiles(1.0, 100.0);
+        turnToAngle(-120);
     }
 
     void runAutonSkill() {
