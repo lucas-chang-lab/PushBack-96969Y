@@ -61,7 +61,6 @@ namespace auton {
     }
 
     void runAutonomous() {
-        Brain.Screen.printAt(10, 110, "hehe");
         switch (currentAutonType) {
             case redUp:
                 runAutonRedUp();

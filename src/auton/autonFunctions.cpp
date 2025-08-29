@@ -58,8 +58,8 @@ namespace autonFunctions {
     }
 
     void driveAndTurnDistanceWithInches(double distanceInches, double targetRotation, double maxVelocityPct, double maxTurnVelocityPct, double errorRange, double runTimeout) {
-        //double lookEncoderInitialRev = LookEncoder.rotation(rev);
-        double lookRotationInitialRev = LookRotation.position(rev);
+        double lookEncoderInitialRev = LookEncoder.rotation(rev);
+        //double lookRotationInitialRev = LookRotation.position(rev);
         //double rightRotationInitialRev = RightRotation.position(rev);
 
         PIDControl driveTargetDistancePid(12.5, 0, 80, errorRange);
@@ -71,7 +71,7 @@ namespace autonFunctions {
         while(!(driveTargetDistancePid.isSettled() && rotateTargetAnglePid.isSettled()) && timeout.value() < runTimeout) {
             double distanceError;
             double targetDistanceInches = distanceInches;
-            double lookCurrentRotation = LookRotation.position(rev) - lookRotationInitialRev;
+            double lookCurrentRotation = LookEncoder.position(rev) - lookEncoderInitialRev;;
             double currentTravelDistanceInches = lookCurrentRotation / trackingLookWheelSensorGearRatio * trackingLookWheelCircumIn; 
             distanceError = targetDistanceInches - currentTravelDistanceInches;
 
