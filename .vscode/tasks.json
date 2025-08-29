@@ -2,20 +2,10 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "build botdrive",
-      "type": "shell",
-      "command": "/usr/bin/g++",
-      "args": [
-        "-std=c++17", "-Wall", "-Wextra", "-g3",
-
-        "-I/Applications/VEXcode V5.app/Contents/Resources/sdk/vexv5/include",
-        "-I/Applications/VEXcode Pro V5.app/Contents/Resources/sdk/vexv5/include",
-        "-I${workspaceFolder}/include",
-
-        "${workspaceFolder}/src/Mechanics/botdrive.cpp",
-        "${workspaceFolder}/src/AutonUtilities/Pid.cpp",
-        "-c", "-o", "${workspaceFolder}/build/obj.o"
-      ],
+      "label": "VEX: Build",
+      "type": "process",
+      "command": "/bin/bash",
+      "args": ["-lc", "source .vscode/vex_env.sh && make -j8"],
       "options": { "cwd": "${workspaceFolder}" },
       "group": { "kind": "build", "isDefault": true },
       "problemMatcher": ["$gcc"]

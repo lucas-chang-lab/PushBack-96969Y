@@ -1,5 +1,5 @@
 #include "Utilities/fieldInfo.h"
-#include "auton/autonValues.h"
+#include "Auton/autonValues.h"
 
 
 namespace autonvals {

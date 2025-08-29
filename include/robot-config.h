@@ -16,11 +16,16 @@ extern motor_group LeftMotors;
 extern motor_group RightMotors;
 extern motor_group LeftRightMotors;
 
-extern triport Expander1;
-extern encoder LookEncoder;
-extern inertial InertialSensor;
+extern motor intakeMotor;
+extern motor intakeMotor2;
+extern motor intakeMotor3;
 
 extern rotation LookRotation;
 extern rotation RightRotation;
 
-extern motor intakeMotor;
+extern triport Expander1;
+extern encoder LookEncoder;
+extern inertial InertialSensor;
+
+
+

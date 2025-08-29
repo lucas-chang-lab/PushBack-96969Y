@@ -1,9 +1,9 @@
-#include "auton/autonFunctions.h"
+#include "Auton/autonFunctions.h"
 #include "Utilities/generalUtilities.h"
 #include "Utilities/fieldInfo.h"
 #include "Utilities/robotInfo.h"
 #include "robot-config.h"
-#include "autonUtilities/Pid.h"
+#include "AutonUtilities/Pid.h"
 
 namespace {
     using namespace genutil;
@@ -58,9 +58,9 @@ namespace autonFunctions {
     }
 
     void driveAndTurnDistanceWithInches(double distanceInches, double targetRotation, double maxVelocityPct, double maxTurnVelocityPct, double errorRange, double runTimeout) {
-        double lookEncoderInitialRev = LookEncoder.rotation(rev);
+        //double lookEncoderInitialRev = LookEncoder.rotation(rev);
         double lookRotationInitialRev = LookRotation.position(rev);
-        double rightRotationInitialRev = RightRotation.position(rev);
+        //double rightRotationInitialRev = RightRotation.position(rev);
 
         PIDControl driveTargetDistancePid(12.5, 0, 80, errorRange);
 		PIDControl rotateTargetAnglePid(1.0, 0.001, 0.5, defaultTurnAngleErrorRange);
@@ -110,9 +110,9 @@ namespace {
         rightVoltageVolt *= scaleFactor;
 
         leftVoltageVolt = clamp(leftVoltageVolt, -clampMaxVoltage, clampMaxVoltage);
-        rightVoltageVolt = clamp(leftVoltageVolt, -clampMaxVoltage, clampMaxVoltage);
+        rightVoltageVolt = clamp(rightVoltageVolt, -clampMaxVoltage, clampMaxVoltage);
 
-        LeftMotors.spin(forward, leftVoltageVolt, voltageUnits::volt);
-        RightMotors.spin(forward, leftVoltageVolt, voltageUnits::volt);
+        LeftMotors.spin(fwd, leftVoltageVolt, voltageUnits::volt);
+        RightMotors.spin(fwd, rightVoltageVolt, voltageUnits::volt);
     }
 }

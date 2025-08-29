@@ -31,11 +31,11 @@ namespace samplemech {
 
 		task setState([]() -> int {
 			// Get global variables
-			int taskState = _taskState;
-			double taskDelay = _taskDelay;
+			//int taskState = _taskState;
+			//double taskDelay = _taskDelay;
 
 			// Delay setting state
-			task::sleep(taskDelay * 1000);
+			//task::sleep(taskDelay * 1000);
 
 			// Set state here
 

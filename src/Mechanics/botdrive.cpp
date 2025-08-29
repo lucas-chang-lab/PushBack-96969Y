@@ -75,7 +75,7 @@ namespace {
         double axis1 = Controller1.Axis1.position();
         if (fabs(axis1) < 2) axis1 = 0;
 
-        drive(axis3, axis3, -axis1 * 0.8);
+        drive(axis3, axis3, axis1 * 0.8);
     }
 
     /// @brief Drive in arcade mode (Axis3 forward/backward, Axis4 rotation)
@@ -86,7 +86,7 @@ namespace {
         double axis4 = Controller1.Axis4.position();
         if (fabs(axis4) < 2) axis4 = 0;
 
-        drive(axis3, axis3, -axis4);
+        drive(axis3, axis3, axis4);
     }
 
     void drive(double initLeftPct, double initRightPct, double initPolarRotatePct, double rotateCenterOffsetIn) {

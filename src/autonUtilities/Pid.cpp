@@ -3,23 +3,35 @@
 
 PIDControl::PIDControl(double kP, double kI, double kD, double settleRange, double settleFrameCount)
     : kP(kP), kI(kI), kD(kD), settleRange(fabs(settleRange)), settleMinFrameCount(settleFrameCount),
-      currentError(0), previousError(0), cumulativeError(0), deltaError(0),
-      settledFrameCount(0) {}
+      currentError(2e17), previousError(2e17), cumulativeError(0), deltaError(0),
+      settledFrames(0) {}
 
 void PIDControl::computeFromError(double error) {
-    deltaError = error - previousError;
+    if (previousError > 1e17) {
+        previousError = error;
+    } else {
+        previousError = currentError;
+    }
+
     currentError = error;
-    previousError = currentError;
     bool isCrossZero = (currentError * previousError < 0);
     if (isCrossZero) {
         cumulativeError = 0;
     } else {
         cumulativeError += currentError;
     }
+    deltaError = currentError - previousError;
+
+    if (fabs(error) < settleRange) {
+        settledFrames++;
+        settledFrames = fmin(settledFrames, settleMinFrameCount + 1);
+    } else {
+        settledFrames = 0;
+    }
 }
 
-void PIDControl::setError(double errorI) {
-    cumulativeError = errorI;
+void PIDControl::setIntegral(double integral) {
+    cumulativeError = integral;
 }
 
 double PIDControl::getOutput(bool useP, bool useI, bool useD) {
@@ -30,7 +42,7 @@ double PIDControl::getOutput(bool useP, bool useI, bool useD) {
 }
 
 bool PIDControl::isSettled() {
-    if (fabs(currentError) < settleRange && settledFrameCount >= settleMinFrameCount) {
+    if (fabs(currentError) < settleRange && settledFrames >= settleMinFrameCount) {
         return true;
     } else {
         return false;

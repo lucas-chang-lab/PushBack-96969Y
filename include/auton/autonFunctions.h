@@ -3,7 +3,7 @@
 #include "Auton/autonValues.h"
 
 namespace autonFunctions {
-    using autonvals::defaultMoveTilesErrorRange, autonvals::defaultMoveWithInchesErrorRange, autonvals::defaultTurnAngleErrorRange;
+    using namespace autonvals;
 
     void setRotation(double rotation);
     void turnToAngle(double rotation, double rotateCenterOffsetIn = 0, double errorRange = defaultTurnAngleErrorRange, double runTimeout = 3.0);

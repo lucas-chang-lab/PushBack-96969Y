@@ -1,9 +1,12 @@
-#include "auton/auton.h"
+#include "Auton/auton.h"
+#include "Auton/autonFunctions.h"
 #include "main.h"
 
 namespace {
     using namespace auton;
-    autonomousType currentAutonType = autonomousType::test;
+    using namespace autonFunctions;
+    autonomousType currentAutonType = autonomousType::redUp;
+    int auton_allianceId;
     
     void runAutonRedUp();
     void runAutonRedDown();
@@ -13,14 +16,13 @@ namespace {
     void runDrivingSkill();
     void runTestAuton();
 
-    bool userRunningAutonomous = false;
-    autonomousType auton_runType = autonomousType::drivingSkill;
-    int auton_allianceId;
+    bool userRunningAutonomous = true;
 }
 
 namespace auton {
     void setAutonRunType(int allianceId, autonomousType autonType) {
         currentAutonType = autonType;
+        auton_allianceId = allianceId;
         switch (currentAutonType) {
             case redUp:
                 Brain.Screen.print("Auton Type: Red Up");
@@ -44,16 +46,14 @@ namespace auton {
                 Brain.Screen.print("Auton Type: Test");
                 break;
         }
-        auton_runType = autonType;
-        auton_allianceId = allianceId;
     }
 
     void showAutonRunType() {
-        setAutonRunType(auton_allianceId, auton_runType);
+        setAutonRunType(auton_allianceId, currentAutonType);
     }
 
     autonomousType getAutonRunType() {
-        return auton_runType;
+        return currentAutonType;
     }
 
     bool isUserRunningAuton() {
@@ -61,21 +61,29 @@ namespace auton {
     }
 
     void runAutonomous() {
+        Brain.Screen.printAt(10, 110, "hehe");
         switch (currentAutonType) {
             case redUp:
+                runAutonRedUp();
                 break;
             case redDown:
+                runAutonRedDown();
                 break;
             case blueUp:
+                runAutonBlueUp();
                 break;
             case blueDown:
+                runAutonBlueDown();
                 break;
             case autonSkill:
+                runAutonSkill();
                 break;
             case drivingSkill:
+                runDrivingSkill();
                 break;
             case test:
-                Brain.Screen.print("Running Test Auton");
+                runTestAuton();
+                Brain.Screen.printAt(10, 60, "Running Test Auton");
                 break;
         }
     }
@@ -83,7 +91,8 @@ namespace auton {
 
 namespace {
     void runAutonRedUp() {
-        // Implement Red Up autonomous logic
+        Brain.Screen.printAt(10, 70, "Running Red Up Auton");
+        driveDistanceTiles(1.0, 100.0);
     }
 
     void runAutonRedDown() {
