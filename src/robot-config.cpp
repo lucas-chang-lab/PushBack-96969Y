@@ -21,6 +21,8 @@ motor intakeMotor(PORT8, ratio18_1, false);
 motor intakeMotor2(PORT9, ratio18_1, false);
 motor intakeMotor3(PORT10, ratio18_1, false);
 
+pneumatics botArmPneumatics(Brain.ThreeWirePort.A);
+
 rotation LookRotation(PORT20);
 rotation RightRotation(PORT19);
 

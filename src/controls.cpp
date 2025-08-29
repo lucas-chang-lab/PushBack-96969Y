@@ -1,15 +1,15 @@
 #include "controls.h"
 #include "Mechanics/botDrive.h"
-#include "Mechanics/botIntake.h"
-#include "Mechanics/botIntake2.h"
-#include "Mechanics/botIntake3.h"
+#include "Mechanics/backIntake.h"
+#include "Mechanics/bottomFrontIntake.h"
+#include "Mechanics/topFrontIntake.h"
 #include "main.h"
 
 
 namespace controls {
     void startThreads() {
         static task intakeThread([]() -> int {
-            botIntake::runThread();
+            backIntake::runThread();
             return 1;
         });
     }
@@ -54,20 +54,20 @@ namespace controls {
 
     void doControls() {
         botdrive::control();
-        botIntake::control(
-            (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
+        backIntake::control(
+            (int)(Controller1.ButtonLeft.pressing()) - (int)(Controller1.ButtonRight.pressing())
         );
-        botIntake2::control(
+        bottomFrontIntake::control(
             (int)(Controller1.ButtonL1.pressing()) - (int)(Controller1.ButtonL2.pressing())
         );
-        botIntake3::control(
+        topFrontIntake::control(
             (int)(Controller1.ButtonUp.pressing()) - (int)(Controller1.ButtonDown.pressing())
         );
         // down L2, R2
-        if (Controller1.ButtonLeft.pressing()) {
-            botIntake::control(-1);
-            botIntake2::control(-1);
-            botIntake3::control(-1);
+        if (Controller1.ButtonR2.pressing()) {
+            backIntake::control(1);
+            bottomFrontIntake::control(-1);
+            topFrontIntake::control(-1);
         }
     }
 }

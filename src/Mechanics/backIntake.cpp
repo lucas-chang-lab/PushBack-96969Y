@@ -1,4 +1,4 @@
-#include "Mechanics/botIntake2.h"
+#include "Mechanics/backIntake.h"
 #include "robot-config.h"
 #include "main.h"
 
@@ -6,7 +6,7 @@ namespace {
     bool controlState = true;
 }
 
-namespace botIntake2 {
+namespace backIntake {
     int _taskState = 0; // 0 = stop, 1 = intake, -1 = outtake
     double _taskDelay = 0;
 
@@ -17,11 +17,12 @@ namespace botIntake2 {
     }
 
     void preauton() {
-        intakeMotor2.stop(hold);
+        intakeMotor.stop(hold);
     }
 
     void setState(int state, double delaySec) {
-        if (delaySec <= 1e-9) {
+        if (delaySec <= 1e-9)
+        {
             _taskState = state;
             control(_taskState);
             return;
@@ -53,17 +54,17 @@ namespace botIntake2 {
         if (canControl()) {
             switch (state) {
             case 1:
-                intakeMotor2.spin(fwd, 11, volt);
+                intakeMotor.spin(fwd, 11, volt);
                 break;
             case -1:
-                intakeMotor2.spin(reverse, 11, volt);
+                intakeMotor.spin(reverse, 11, volt);
                 break;
             default:
-                intakeMotor2.stop(coast);
+                intakeMotor.stop(coast);
                 break;
             }
         } else {
-            intakeMotor2.stop(coast);
+            intakeMotor.stop(coast);
         }
     }
 

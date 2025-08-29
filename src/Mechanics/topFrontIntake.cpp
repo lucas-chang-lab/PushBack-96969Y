@@ -1,4 +1,4 @@
-#include "Mechanics/botIntake3.h"
+#include "Mechanics/topFrontIntake.h"
 #include "robot-config.h"
 #include "main.h"
 
@@ -6,7 +6,7 @@ namespace {
     bool controlState = true;
 }
 
-namespace botIntake3 {
+namespace topFrontIntake {
     int _taskState = 0; // 0 = stop, 1 = intake, -1 = outtake
     double _taskDelay = 0;
 

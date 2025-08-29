@@ -19,7 +19,7 @@ extern motor_group LeftRightMotors;
 extern motor intakeMotor;
 extern motor intakeMotor2;
 extern motor intakeMotor3;
-
+extern pneumatics botArmPneumatics;
 extern rotation LookRotation;
 extern rotation RightRotation;
 
