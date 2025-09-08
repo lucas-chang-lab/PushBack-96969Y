@@ -3,8 +3,8 @@
 
 namespace auton {
     enum autonomousType {
-        redLeft, redRight, 
-        blueLeft, blueRight, 
+        redRight, redLeft, 
+        blueRight, blueLeft, 
         autonSkill, drivingSkill,
         test
     };

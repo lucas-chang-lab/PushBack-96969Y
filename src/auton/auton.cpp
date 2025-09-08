@@ -8,13 +8,13 @@ namespace {
     autonomousType currentAutonType = autonomousType::redLeft;
     int auton_allianceId;
     
-    void RedLeft();
     void RedRight();
-    void BlueLeft();
+    void RedLeft();
     void BlueRight();
-    void runAutonSkill();
-    void runDrivingSkill();
-    void runTestAuton();
+    void BlueLeft();
+    void AutonSkill();
+    void DrivingSkill();
+    void Test();
 
     bool userRunningAutonomous = false;
 }
@@ -24,17 +24,17 @@ namespace auton {
         currentAutonType = autonType;
         auton_allianceId = allianceId;
         switch (currentAutonType) {
-            case redLeft:
-                Brain.Screen.print("Auton Type: Red Up");
-                break;
             case redRight:
-                Brain.Screen.print("Auton Type: Red Down");
+                Brain.Screen.print("Auton Type: RedRight");
                 break;
-            case blueLeft:
-                Brain.Screen.print("Auton Type: Blue Up");
+            case redLeft:
+                Brain.Screen.print("Auton Type: RedLeft");
                 break;
             case blueRight:
-                Brain.Screen.print("Auton Type: Blue Down");
+                Brain.Screen.print("Auton Type: BlueRight");
+                break;
+            case blueLeft:
+                Brain.Screen.print("Auton Type: BlueLeft");
                 break;
             case autonSkill:
                 Brain.Screen.print("Auton Type: Auton Skill");
@@ -75,13 +75,13 @@ namespace auton {
                 BlueRight();
                 break;
             case autonSkill:
-                runAutonSkill();
+                AutonSkill();
                 break;
             case drivingSkill:
-                runDrivingSkill();
+                DrivingSkill();
                 break;
             case test:
-                runTestAuton();
+                Test();
                 Brain.Screen.printAt(10, 60, "Running Test Auton");
                 break;
         }
@@ -89,7 +89,7 @@ namespace auton {
 }
 
 namespace {
-    void RedLeft() {
+    void RedRight() {
         setRotation(0.0);
         //driveDistanceTiles(1.5, 100.0);
         turnToAngle(20.0);
@@ -120,15 +120,15 @@ namespace {
         turnToAngle(-120);
     }
 
-    void runAutonSkill() {
+    void AutonSkill() {
         // Implement Auton Skill logic
     }
 
-    void runDrivingSkill() {
+    void DrivingSkill() {
         // Implement Driving Skill logic
     }
 
-    void runTestAuton() {
+    void Test() {
         // Implement Test Auton logic
     }
 }
