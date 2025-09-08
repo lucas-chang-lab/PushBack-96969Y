@@ -65,19 +65,6 @@ namespace controls {
         topFrontIntake::control(
             (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
         );
-/*
-        backIntake::control( //back -1
-            (int)(Controller1.ButtonL1.pressing()) - (int)(Controller1.ButtonL2.pressing())
-        );
-        bottomFrontIntake::control( //front -1
-            (int)(Controller1.ButtonUp.pressing()) - (int)(Controller1.ButtonDown.pressing())
-        );
-        topFrontIntake::control(  //top. -1
-            (int)(Controller1.ButtonRight.pressing()) - (int)(Controller1.ButtonLeft.pressing())
-        );
-        */
-        
-        
         
     }
 }

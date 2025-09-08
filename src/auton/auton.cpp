@@ -5,13 +5,13 @@
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::redUp;
+    autonomousType currentAutonType = autonomousType::redLeft;
     int auton_allianceId;
     
-    void runAutonRedUp();
-    void runAutonRedDown();
-    void runAutonBlueUp();
-    void runAutonBlueDown();
+    void RedLeft();
+    void RedRight();
+    void BlueLeft();
+    void BlueRight();
     void runAutonSkill();
     void runDrivingSkill();
     void runTestAuton();
@@ -24,16 +24,16 @@ namespace auton {
         currentAutonType = autonType;
         auton_allianceId = allianceId;
         switch (currentAutonType) {
-            case redUp:
+            case redLeft:
                 Brain.Screen.print("Auton Type: Red Up");
                 break;
-            case redDown:
+            case redRight:
                 Brain.Screen.print("Auton Type: Red Down");
                 break;
-            case blueUp:
+            case blueLeft:
                 Brain.Screen.print("Auton Type: Blue Up");
                 break;
-            case blueDown:
+            case blueRight:
                 Brain.Screen.print("Auton Type: Blue Down");
                 break;
             case autonSkill:
@@ -62,17 +62,17 @@ namespace auton {
 
     void runAutonomous() {
         switch (currentAutonType) {
-            case redUp:
-                runAutonRedUp();
+            case redLeft:
+                RedLeft();
                 break;
-            case redDown:
-                runAutonRedDown();
+            case redRight:
+                RedRight();
                 break;
-            case blueUp:
-                runAutonBlueUp();
+            case blueLeft:
+                BlueLeft();
                 break;
-            case blueDown:
-                runAutonBlueDown();
+            case blueRight:
+                BlueRight();
                 break;
             case autonSkill:
                 runAutonSkill();
@@ -89,7 +89,7 @@ namespace auton {
 }
 
 namespace {
-    void runAutonRedUp() {
+    void RedLeft() {
         setRotation(0.0);
         //driveDistanceTiles(1.5, 100.0);
         turnToAngle(20.0);
@@ -97,14 +97,14 @@ namespace {
         //turnToAngle(-120);
     }
 
-    void runAutonRedDown() {
+    void RedRight() {
         setRotation(0.0);
         driveDistanceTiles(1.5, 100.0);
         turnToAngle(60.0);
         driveDistanceTiles(1.0, 100.0);
         turnToAngle(-120);    }
 
-    void runAutonBlueUp() {
+    void BlueLeft() {
         setRotation(0.0);
         driveDistanceTiles(1.5, 100.0);
         turnToAngle(60.0);
@@ -112,7 +112,7 @@ namespace {
         turnToAngle(-120);
     }
 
-    void runAutonBlueDown() {
+    void BlueRight() {
         setRotation(0.0);
         driveDistanceTiles(1.5, 100.0);
         turnToAngle(60.0);
