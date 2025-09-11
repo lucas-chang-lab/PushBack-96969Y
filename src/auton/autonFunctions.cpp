@@ -33,6 +33,7 @@ namespace autonFunctions {
         timer timeout;
         while(!rotateTargetAnglePid.isSettled() && timeout.value() < runTimeout) {
             double rotateError = rotation - InertialSensor.rotation();
+            printf("Rotation: %.2f\n", InertialSensor.rotation());
             rotateTargetAnglePid.computeFromError(rotateError);
 
             double averageMotorVelocityPct = clamp(rotateTargetAnglePid.getOutput(), -maxVelocityPct, maxVelocityPct);
@@ -83,8 +84,8 @@ namespace autonFunctions {
             double rotateVelocityPct = fmin(maxTurnVelocityPct, fmax(-maxTurnVelocityPct, rotateTargetAnglePid.getOutput()));
 
 
-            double leftVelocityPct = velocityPct + rotateVelocityPct;
-            double rightVelocityPct = velocityPct - rotateVelocityPct;
+            double rightVelocityPct = velocityPct + rotateVelocityPct;
+            double leftVelocityPct = velocityPct - rotateVelocityPct;
 
             driveVoltage(genutil::pctToVolt(leftVelocityPct), genutil::pctToVolt(rightVelocityPct), 10.0);
         }

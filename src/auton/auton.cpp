@@ -5,7 +5,7 @@
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::redLeft;
+    autonomousType currentAutonType = autonomousType::redRight;
     int auton_allianceId;
     
     void RedRight();
@@ -16,7 +16,7 @@ namespace {
     void DrivingSkill();
     void Test();
 
-    bool userRunningAutonomous = false;
+    bool userRunningAutonomous = true;
 }
 
 namespace auton {
@@ -92,19 +92,19 @@ namespace {
     void RedRight() {
         setRotation(0.0);
         //driveDistanceTiles(1.5, 100.0);
-        turnToAngle(20.0);
+        turnToAngle(90.0,0.0,40,1.0);
         //driveDistanceTiles(1.0, 100.0);
         //turnToAngle(-120);
     }
 
-    void RedRight() {
+    void RedLeft() {
         setRotation(0.0);
         driveDistanceTiles(1.5, 100.0);
         turnToAngle(60.0);
         driveDistanceTiles(1.0, 100.0);
         turnToAngle(-120);    }
 
-    void BlueLeft() {
+    void BlueRight() {
         setRotation(0.0);
         driveDistanceTiles(1.5, 100.0);
         turnToAngle(60.0);
@@ -112,7 +112,7 @@ namespace {
         turnToAngle(-120);
     }
 
-    void BlueRight() {
+    void BlueLeft() {
         setRotation(0.0);
         driveDistanceTiles(1.5, 100.0);
         turnToAngle(60.0);

@@ -17,34 +17,29 @@ competition Competition;
 timer drivingTimer;
 
 void pre_auton() {
-    controls::startThreads();
-    controls::preauton();
-    
+    InertialSensor.calibrate();
+    while (InertialSensor.isCalibrating()) vex::this_thread::sleep_for(20);
+    //InertialSensor.setHeading(0, degrees);
 
-    //auton::showAutonRunType();
+    //controls::startThreads();
+    //controls::preauton();
+
+    Brain.Screen.clearScreen();
+    Brain.Screen.printAt(10, 50, "pre_auton done");
 }
 
 void autonomous() {
-    Brain.Screen.printAt(10, 90, "autonomous" );
     timer benchmarkTimer;
 
     auton::runAutonomous();
 }
 
-void userRunAutonomous() {
-    //task::sleep(1500);
-    
-    autonomous();
-}
-
 void usercontrol() {
-    Brain.Screen.printAt(10, 50, "usercontrol" );
     drivingTimer.reset();
 
-    /*if (auton::isUserRunningAuton()) {
-        Brain.Screen.printAt(10, 80, "here" );
-        userRunAutonomous();
-    }*/
+    if (auton::isUserRunningAuton()) {
+        autonomous();
+    }
 
     controls::setUpKeybinds();
     controls::resetStates();
@@ -52,15 +47,19 @@ void usercontrol() {
     while(1) {
         controls::doControls();
 
+        Brain.Screen.setCursor(1, 1);
+        Brain.Screen.print("Heading: %.2f", InertialSensor.heading());
+        Brain.Screen.newLine();
+        Brain.Screen.print("Rotation: %.2f", InertialSensor.rotation());
         wait(20, msec);
     }
 }
 
 int main() {
+    pre_auton();
     Competition.autonomous(autonomous);
     Competition.drivercontrol(usercontrol);
 
-    //pre_auton();
     while(1) {
         wait(100, msec);
     }
