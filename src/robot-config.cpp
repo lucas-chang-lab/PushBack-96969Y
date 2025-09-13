@@ -26,7 +26,7 @@ pneumatics botArmPneumatics(Brain.ThreeWirePort.A);
 rotation LookRotation(PORT20);
 rotation RightRotation(PORT19);
 
-triport Expander1(PORT18);
-encoder LookEncoder(Expander1.C);
-inertial InertialSensor(PORT6); 
+triport Expander1(PORT6);
+
+inertial InertialSensor(PORT18); 
 

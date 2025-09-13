@@ -19,8 +19,8 @@ timer drivingTimer;
 void pre_auton() {
     InertialSensor.calibrate();
     while (InertialSensor.isCalibrating()) vex::this_thread::sleep_for(20);
-    //InertialSensor.setHeading(0, degrees);
-
+    vex::this_thread::sleep_for(200);
+    InertialSensor.setRotation(0, degrees);
     //controls::startThreads();
     //controls::preauton();
 
@@ -47,10 +47,8 @@ void usercontrol() {
     while(1) {
         controls::doControls();
 
-        Brain.Screen.setCursor(1, 1);
-        Brain.Screen.print("Heading: %.2f", InertialSensor.heading());
-        Brain.Screen.newLine();
-        Brain.Screen.print("Rotation: %.2f", InertialSensor.rotation());
+        //printf("Heading: %.2f \n", InertialSensor.heading());
+        //printf("Rotation: %.2f \n", InertialSensor.rotation());
         wait(20, msec);
     }
 }

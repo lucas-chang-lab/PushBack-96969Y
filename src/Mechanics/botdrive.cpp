@@ -98,7 +98,7 @@ namespace {
         double leftPct = initLeftPct + leftPolarRotatePct;
         double rightPct = initRightPct - rightPolarRotatePct;
 
-        double scaleFactor = maxDriveVelocityPct / fmax(maxDriveVelocityPct, fmax(abs(leftPct), fabs(rightPct)));
+        double scaleFactor = -maxDriveVelocityPct / fmax(maxDriveVelocityPct, fmax(abs(leftPct), fabs(rightPct)));
         leftPct *= scaleFactor;
         rightPct *= scaleFactor;
         if (fabs(rightPct) < 5) {

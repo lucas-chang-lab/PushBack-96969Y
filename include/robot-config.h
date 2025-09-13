@@ -24,7 +24,7 @@ extern rotation LookRotation;
 extern rotation RightRotation;
 
 extern triport Expander1;
-extern encoder LookEncoder;
+
 extern inertial InertialSensor;
 
 
