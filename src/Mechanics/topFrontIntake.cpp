@@ -4,6 +4,7 @@
 
 namespace {
     bool controlState = true;
+    bool isReversed = false;
 }
 
 namespace topFrontIntake {
@@ -50,9 +51,11 @@ namespace topFrontIntake {
     }
 
     void control(int state) {
+        if (isReversed) {   // 2nd Stage if press Up
+            state = -state;
+        }
         if (canControl()) {
-            switch (state)
-            {
+            switch (state) {
             case 1:
                 intakeMotor3.spin(fwd, 12, volt);
                 break;
@@ -70,5 +73,9 @@ namespace topFrontIntake {
 
     bool canControl() {
         return controlState;
+    }
+
+    void reverseIntake() {
+        isReversed = !isReversed;
     }
 }

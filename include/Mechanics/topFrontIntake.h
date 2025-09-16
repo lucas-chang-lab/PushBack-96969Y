@@ -13,6 +13,8 @@ namespace topFrontIntake {
     void control(int);
 
     bool canControl();
+
+    void reverseIntake();
     
     extern int _taskState;
     extern double _taskDelay;

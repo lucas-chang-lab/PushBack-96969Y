@@ -35,7 +35,7 @@ namespace autonFunctions {
         }
 
         LeftRightMotors.setStopping(brake);
-        PIDControl rotateTargetAnglePid(2, 0, 0, errorRange);
+        PIDControl rotateTargetAnglePid(1, 0.001, 0.4, errorRange);
         timer timeout;
         timeout.reset();
         printf("Starting \n");
@@ -65,7 +65,7 @@ namespace autonFunctions {
         LeftMotors.setPosition(0, rev);
         RightMotors.setPosition(0, rev);
 
-        PIDControl driveTargetDistancePid(6, 0, 20, errorRange);
+        PIDControl driveTargetDistancePid(4.3, 0, 46, errorRange);
         timer timeout;
         timeout.reset();
         printf("Starting \n");

@@ -5,7 +5,7 @@
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::redLeft;
+    autonomousType currentAutonType = autonomousType::redRight;
     int auton_allianceId;
     
     void RedRight();
@@ -92,9 +92,9 @@ namespace {
     void RedRight() {
         setRotation(0.0);
 
-        //turnToAngle(90, 0, 5.0, 10);
+        //turnToAngle(90, 0, 2.0, 2);
         //turnToAngle(0, 0, 5.0, 10);
-        driveDistanceTiles(1.0, 80.0);
+        driveDistanceTiles(1.0, 80.0, 0.1, 2);
     }
 
     void RedLeft() {

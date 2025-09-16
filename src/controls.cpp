@@ -38,7 +38,7 @@ namespace controls {
 
         });
         Controller1.ButtonUp.pressed([]() -> void {
-
+            topFrontIntake::reverseIntake();
         });
 
     }
@@ -56,6 +56,7 @@ namespace controls {
 
     void doControls() {
         botdrive::control();
+        // 3rd Stage + 2nd Stage
         backIntake::control(
             (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
         );
