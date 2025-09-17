@@ -4,6 +4,9 @@
 #include "Utilities/robotInfo.h"
 #include "robot-config.h"
 #include "AutonUtilities/Pid.h"
+#include "Mechanics/topFrontIntake.h"
+#include "Mechanics/backIntake.h"
+#include "Mechanics/bottomFrontIntake.h"
 
 namespace {
     using namespace genutil;
@@ -28,12 +31,6 @@ namespace autonFunctions {
         double leftVelocityFactor = -leftRotationRadiusIn / averageRotationRadiusIn;
         double rightVelocityFactor = rightRotationRadiusIn / averageRotationRadiusIn;
 
-        if (InertialSensor.isCalibrating()) {
-            while (InertialSensor.isCalibrating()) vex::this_thread::sleep_for(20);
-            vex::this_thread::sleep_for(200);
-            printf("Inertial Sensor Calibrated \n");
-        }
-
         LeftRightMotors.setStopping(brake);
         PIDControl rotateTargetAnglePid(1, 0.001, 0.4, errorRange);
         timer timeout;
@@ -43,9 +40,9 @@ namespace autonFunctions {
 
         while(!rotateTargetAnglePid.isSettled() && timeout.value() < runTimeout) {
             double rotateError = rotation - InertialSensor.rotation(degrees);
-            printf("Rotation: %.2f\n", InertialSensor.rotation(degrees));
+            //printf("Rotation: %.2f\n", InertialSensor.rotation(degrees));
             printf("Rotate Error: %.2f\n", rotateError);
-            printf("timeout: %.2f\n", timeout.value());
+            //printf("timeout: %.2f\n", timeout.value());
             rotateTargetAnglePid.computeFromError(rotateError);
 
             double averageMotorVelocityPct = clamp(rotateTargetAnglePid.getOutput(), -maxVelocityPct, maxVelocityPct);
@@ -92,6 +89,24 @@ namespace autonFunctions {
         }
         printf("Ending \n");
         LeftRightMotors.stop(brakeType::brake);
+    }
+
+    void intake2ndStage(int state, double delaySec) {
+        topFrontIntake::setState(state, delaySec);
+        bottomFrontIntake::setState(-state, delaySec);
+        backIntake::setState(-state, delaySec);
+    }
+
+    void intake3rdStage(int state, double delaySec) {
+        topFrontIntake::setState(-state, delaySec);
+        bottomFrontIntake::setState(-state, delaySec);
+        backIntake::setState(-state, delaySec);
+    }
+
+    void intakeStore(int state, double delaySec) {
+        topFrontIntake::setState(state, delaySec);
+        bottomFrontIntake::setState(-state, delaySec);
+        backIntake::setState(state, delaySec, 6.0);
     }
 }
 

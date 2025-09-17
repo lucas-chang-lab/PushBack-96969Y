@@ -10,6 +10,8 @@
 #include "robot-config.h"
 #include "controls.h"
 #include "Auton/auton.h"
+#include "Auton/preauton.h"
+
 
 using namespace vex;
 
@@ -18,9 +20,7 @@ timer drivingTimer;
 
 void pre_auton() {
     InertialSensor.calibrate();
-    while (InertialSensor.isCalibrating()) vex::this_thread::sleep_for(20);
-    vex::this_thread::sleep_for(200);
-    InertialSensor.setRotation(0, degrees);
+    preauton::waitCalibrating();
     //controls::startThreads();
     //controls::preauton();
 

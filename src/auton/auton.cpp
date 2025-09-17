@@ -1,11 +1,12 @@
 #include "Auton/auton.h"
 #include "Auton/autonFunctions.h"
+#include "Auton/preauton.h"
 #include "main.h"
 
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::redRight;
+    autonomousType currentAutonType = autonomousType::blueLeft;
     int auton_allianceId;
     
     void RedRight();
@@ -90,28 +91,51 @@ namespace auton {
 
 namespace {
     void RedRight() {
+        preauton::waitCalibrating();
         setRotation(0.0);
 
-        //turnToAngle(90, 0, 2.0, 2);
+        turnToAngle(90, 0, 2.0, 2);
         //turnToAngle(0, 0, 5.0, 10);
-        driveDistanceTiles(1.0, 80.0, 0.1, 2);
+        //driveDistanceTiles(1.0, 80.0, 0.1, 2);
     }
 
     void RedLeft() {
-        setRotation(-10.0);
-        driveDistanceTiles(1.5, 90.0);
-        turnToAngle(-135);
-        driveDistanceTiles(1.5, 90.0);
-        turnToAngle(0);
-        driveDistanceTiles(1.0, 90.0);
+        preauton::waitCalibrating();
+        setRotation(-54.0);
+        driveDistanceTiles(-1.6, 90.0, 0.1, 0.9);
+        LeftRightMotors.stop(brake);
+        turnToAngle(-2, 0, 2.0, 1.5);
+        LeftRightMotors.stop(brake);
+        driveDistanceTiles(-0.4, 90.0, 0.1, 0.8);
+        LeftRightMotors.stop(brake);
+        intake3rdStage(1, 0);
+        wait(2, sec);
+        driveDistanceTiles(0.8, 90.0, 0.1, 0.8);
+        LeftRightMotors.stop(brake);
+        turnToAngle(45, 0, 2.0, 1.5);
+        LeftRightMotors.stop(brake);
+        driveDistanceTiles(-1.4, 90.0, 0.1, 0.9);
+        LeftRightMotors.stop(brake);
+        intakeStore(1, 0);
+        wait(3, sec);
+        driveDistanceTiles(-0.8, 90.0, 0.1, 0.8);
+        LeftRightMotors.stop(brake);
+        intake2ndStage(1, 0);
+        wait(2, sec);
     }
 
     void BlueRight() {
-        
+        preauton::waitCalibrating();
+        intake2ndStage(1, 0);
+        wait(2, sec);
+        intake3rdStage(1, 0);
+        wait(2, sec);
     }
 
     void BlueLeft() {
-        
+        preauton::waitCalibrating();
+        intakeStore(1, 0);
+        wait(5, sec);
     }
 
     void AutonSkill() {

@@ -9,6 +9,7 @@ namespace {
 namespace backIntake {
     int _taskState = 0; // 0 = stop, 1 = intake, -1 = outtake
     double _taskDelay = 0;
+    double _taskVoltage = 12.0;
 
     void runThread() {
         while (1) {
@@ -20,24 +21,26 @@ namespace backIntake {
         intakeMotor.stop(hold);
     }
 
-    void setState(int state, double delaySec) {
-        if (delaySec <= 1e-9)
-        {
+    void setState(int state, double delaySec, double voltage) {
+        if (delaySec <= 1e-9) {
             _taskState = state;
-            control(_taskState);
+            _taskVoltage = voltage;
+            control(_taskState, _taskVoltage);
             return;
         }
 
         _taskState = state;
         _taskDelay = delaySec;
+        _taskVoltage = voltage;
 
         task setStateTask([]() -> int {
             int taskState = _taskState;
             double taskDelay = _taskDelay;
+            double taskVoltage = _taskVoltage;
 
             task::sleep(taskDelay * 1000);
 
-            control(taskState);
+            control(taskState, taskVoltage);
             return 1; 
         });
     }
@@ -50,14 +53,14 @@ namespace backIntake {
         }
     }
 
-    void control(int state) {
+    void control(int state, double voltage) {
         if (canControl()) {
             switch (state) {
             case 1:
-                intakeMotor.spin(fwd, 12, volt);
+                intakeMotor.spin(fwd, voltage, volt);
                 break;
             case -1:
-                intakeMotor.spin(reverse, 12, volt);
+                intakeMotor.spin(reverse, voltage, volt);
                 break;
             default:
                 intakeMotor.stop(coast);
