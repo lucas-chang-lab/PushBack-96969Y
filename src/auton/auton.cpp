@@ -98,28 +98,28 @@ namespace {
         //turn to score pre-load
         turnToAngle(2, 0, 2.0, 0.7);
         LeftRightMotors.stop(brake);
-        driveDistanceTiles(-0.443, 90.0, 0.1, 0.8);
+        driveDistanceTiles(-0.26, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         //score pre-load
         intake3rdStage(1, 0);
-        wait(2, sec);
-        driveDistanceTiles(0.8, 90.0, 0.1, 0.8);
+        wait(0.8, sec);
+        driveDistanceTiles(0.87, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         //turn to pick up center balls
-        turnToAngle(-40, 0, 2.0, 0.7);
+        
+        turnToAngle(-42, 0, 2.0, 0.7);
         LeftRightMotors.stop(brake);
-        /*
-        driveDistanceTiles(-1.4, 90.0, 0.1, 0.9);
+        driveDistanceTiles(-1.57, 90.0, 0.1, 0.9);
         LeftRightMotors.stop(brake);
         //intake center balls
         intakeStore(1, 0);
-        wait(1, sec);
+        wait(0.3, sec);
+        turnToAngle(-38, 0, 2.0, 0.7);
         //score center balls
         intake1stStage(1, 0.5);
-        driveDistanceTiles(-0.7, 90.0, 0.1, 0.8);
+        driveDistanceTiles(-0.6, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         wait(1.5, sec);
-        */
     }
 
     void RedLeft() {
