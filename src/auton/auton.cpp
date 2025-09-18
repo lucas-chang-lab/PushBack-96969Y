@@ -6,7 +6,7 @@
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::redRight;
+    autonomousType currentAutonType = autonomousType::test;
     int auton_allianceId;
     
     void RedRight();
@@ -170,11 +170,7 @@ namespace {
     }
 
     void Test() {
-        intake1stStage(1, 0);
-        wait(3, sec);
-        intake2ndStage(1, 0);
-        wait(3, sec);
-        intake3rdStage(1, 0);
-        wait(3, sec);
+        preauton::waitCalibrating();
+        driveAndTurnDistanceTiles(1, 90, 90, 100, 0, 0.1, 2.0);
     }
 }

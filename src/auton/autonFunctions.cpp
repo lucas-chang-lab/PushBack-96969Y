@@ -91,6 +91,54 @@ namespace autonFunctions {
         LeftRightMotors.stop(brakeType::brake);
     }
 
+    void driveAndTurnDistanceTiles(double distanceTiles, double rotation, double maxVelocityPct, double maxTurnVelocityPct, double rotateCenterOffsetIn, double errorRange, double runTimeout) {
+        double targetDistanceInches = distanceTiles * field::tileLengthIn;
+        LeftMotors.setPosition(0, rev);
+        RightMotors.setPosition(0, rev);
+
+        double leftRotationRadiusIn = halfRobotLengthIn + rotateCenterOffsetIn;
+        double rightRotationRadiusIn = halfRobotLengthIn - rotateCenterOffsetIn;
+        double averageRotationRadiusIn = (leftRotationRadiusIn + rightRotationRadiusIn) / 2.0;
+
+        double leftVelocityFactor = -leftRotationRadiusIn / averageRotationRadiusIn;
+        double rightVelocityFactor = rightRotationRadiusIn / averageRotationRadiusIn;
+
+        PIDControl driveTargetDistancePid(4.3, 0, 46, errorRange);
+        PIDControl rotateTargetAnglePid(1, 0.001, 0.4, defaultTurnAngleErrorRange);
+        timer timeout;
+        timeout.reset();
+        printf("Starting \n");
+        while((!driveTargetDistancePid.isSettled() || !rotateTargetAnglePid.isSettled()) && timeout.value() < runTimeout) {
+            double distanceError;
+            double traveledRev = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
+            double currentTravelDistanceInches = traveledRev  * trackingLookWheelCircumIn; 
+            distanceError = targetDistanceInches - currentTravelDistanceInches;
+
+            double rotateError = rotation - InertialSensor.rotation(degrees);
+
+            //printf("Target Distance: %.2f inches\n", targetDistanceInches);
+            //printf("Current Distance: %.2f inches\n", currentTravelDistanceInches);
+            printf("Distance Error: %.2f inches\n", distanceError);
+            printf("Rotate Error: %.2f\n", rotateError);
+            printf("Timeout: %.2f seconds\n", timeout.value());
+            //printf("driveTargetDistancePid Output: %.2f\n", driveTargetDistancePid.getOutput());
+            //printf("rotateTargetAnglePid Output: %.2f\n", rotateTargetAnglePid.getOutput());
+
+            driveTargetDistancePid.computeFromError(distanceError);
+            rotateTargetAnglePid.computeFromError(rotateError);
+            
+            double velocityPct = fmin(maxVelocityPct, fmax(-maxVelocityPct, driveTargetDistancePid.getOutput()));
+            double rotationPct = fmin(maxTurnVelocityPct, fmax(-maxTurnVelocityPct, rotateTargetAnglePid.getOutput()));
+            double leftMotorVelocityPct = velocityPct + rotationPct * leftVelocityFactor;
+            double rightMotorVelocityPct = velocityPct + rotationPct * rightVelocityFactor;
+
+            driveVoltage(genutil::pctToVolt(leftMotorVelocityPct), genutil::pctToVolt(rightMotorVelocityPct), 10.0);
+            task::sleep(20);
+        }
+        printf("Ending \n");
+        LeftRightMotors.stop(brakeType::brake);
+    }
+
     void intake3rdStage(int state, double delaySec) {
         topFrontIntake::setState(-state, delaySec);
         bottomFrontIntake::setState(-state, delaySec);
