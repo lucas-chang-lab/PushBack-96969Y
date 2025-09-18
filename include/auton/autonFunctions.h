@@ -13,5 +13,6 @@ namespace autonFunctions {
 
     void intake3rdStage(int state, double delaySec = 0);
     void intake2ndStage(int state, double delaySec = 0);
+    void intake1stStage(int state, double delaySec = 0);
     void intakeStore(int state, double delaySec = 0);
 }

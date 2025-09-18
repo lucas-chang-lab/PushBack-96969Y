@@ -6,11 +6,11 @@ namespace backIntake {
 
     void preauton();
 
-    void setState(int, double = 0, double = 12.0);
+    void setState(int, double = 0);
 
     void switchState();
 
-    void control(int, double = 12.0);
+    void control(int);
 
     bool canControl();
     

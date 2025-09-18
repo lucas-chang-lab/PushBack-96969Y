@@ -25,13 +25,15 @@ void pre_auton() {
     //controls::preauton();
 
     Brain.Screen.clearScreen();
-    Brain.Screen.printAt(10, 50, "pre_auton done");
+    //Brain.Screen.printAt(10, 50, "pre_auton done");
 }
 
 void autonomous() {
     timer benchmarkTimer;
+    benchmarkTimer.reset();
 
     auton::runAutonomous();
+    printf("Auton Time: %.2f seconds \n", benchmarkTimer.value());
 }
 
 void usercontrol() {

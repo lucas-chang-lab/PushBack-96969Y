@@ -35,25 +35,25 @@ namespace autonFunctions {
         PIDControl rotateTargetAnglePid(1, 0.001, 0.4, errorRange);
         timer timeout;
         timeout.reset();
-        printf("Starting \n");
-        printf("runTimeout seen here = %.2f (seconds)\n", runTimeout);
+        //printf("Starting \n");
+        //printf("runTimeout seen here = %.2f (seconds)\n", runTimeout);
 
         while(!rotateTargetAnglePid.isSettled() && timeout.value() < runTimeout) {
             double rotateError = rotation - InertialSensor.rotation(degrees);
             //printf("Rotation: %.2f\n", InertialSensor.rotation(degrees));
-            printf("Rotate Error: %.2f\n", rotateError);
+            //printf("Rotate Error: %.2f\n", rotateError);
             //printf("timeout: %.2f\n", timeout.value());
             rotateTargetAnglePid.computeFromError(rotateError);
 
             double averageMotorVelocityPct = clamp(rotateTargetAnglePid.getOutput(), -maxVelocityPct, maxVelocityPct);
-            printf("rotateTargetAnglePid Output: %.2f\n", rotateTargetAnglePid.getOutput());
+            //printf("rotateTargetAnglePid Output: %.2f\n", rotateTargetAnglePid.getOutput());
             double leftMotorVelocityPct = averageMotorVelocityPct * leftVelocityFactor;
             double rightMotorVelocityPct = averageMotorVelocityPct * rightVelocityFactor;
 
             driveVoltage(genutil::pctToVolt(leftMotorVelocityPct), genutil::pctToVolt(rightMotorVelocityPct), 12);
             task::sleep(20);   
         }
-        printf("Ending \n");
+        //printf("Ending \n");
         LeftRightMotors.stop(brakeType::brake);
     }
 
@@ -65,7 +65,7 @@ namespace autonFunctions {
         PIDControl driveTargetDistancePid(4.3, 0, 46, errorRange);
         timer timeout;
         timeout.reset();
-        printf("Starting \n");
+        //printf("Starting \n");
         while(!driveTargetDistancePid.isSettled() && timeout.value() < runTimeout) {
             double distanceError;
             double traveledRev = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
@@ -73,10 +73,10 @@ namespace autonFunctions {
             distanceError = targetDistanceInches - currentTravelDistanceInches;
 
             //printf("Target Distance: %.2f inches\n", targetDistanceInches);
-            printf("Current Distance: %.2f inches\n", currentTravelDistanceInches);
-            printf("Distance Error: %.2f inches\n", distanceError);
-            printf("Timeout: %.2f seconds\n", timeout.value());
-            printf("driveTargetDistancePid Output: %.2f\n", driveTargetDistancePid.getOutput());
+            //printf("Current Distance: %.2f inches\n", currentTravelDistanceInches);
+            //printf("Distance Error: %.2f inches\n", distanceError);
+            //printf("Timeout: %.2f seconds\n", timeout.value());
+            //printf("driveTargetDistancePid Output: %.2f\n", driveTargetDistancePid.getOutput());
 
             driveTargetDistancePid.computeFromError(distanceError);
             double velocityPct = fmin(maxVelocityPct, fmax(-maxVelocityPct, driveTargetDistancePid.getOutput()));
@@ -91,22 +91,28 @@ namespace autonFunctions {
         LeftRightMotors.stop(brakeType::brake);
     }
 
-    void intake2ndStage(int state, double delaySec) {
-        topFrontIntake::setState(state, delaySec);
-        bottomFrontIntake::setState(-state, delaySec);
-        backIntake::setState(-state, delaySec);
-    }
-
     void intake3rdStage(int state, double delaySec) {
         topFrontIntake::setState(-state, delaySec);
         bottomFrontIntake::setState(-state, delaySec);
         backIntake::setState(-state, delaySec);
     }
 
+    void intake2ndStage(int state, double delaySec) {
+        topFrontIntake::setState(state, delaySec);
+        bottomFrontIntake::setState(-state, delaySec);
+        backIntake::setState(-state, delaySec);
+    }
+
+    void intake1stStage(int state, double delaySec) {
+        topFrontIntake::setState(state, delaySec);
+        bottomFrontIntake::setState(state, delaySec);
+        backIntake::setState(state, delaySec);
+    }
+
     void intakeStore(int state, double delaySec) {
         topFrontIntake::setState(state, delaySec);
         bottomFrontIntake::setState(-state, delaySec);
-        backIntake::setState(state, delaySec, 6.0);
+        backIntake::setState(state, delaySec);
     }
 }
 

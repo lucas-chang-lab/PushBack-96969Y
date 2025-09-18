@@ -6,7 +6,7 @@
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::blueLeft;
+    autonomousType currentAutonType = autonomousType::redRight;
     int auton_allianceId;
     
     void RedRight();
@@ -92,11 +92,34 @@ namespace auton {
 namespace {
     void RedRight() {
         preauton::waitCalibrating();
-        setRotation(0.0);
-
-        turnToAngle(90, 0, 2.0, 2);
-        //turnToAngle(0, 0, 5.0, 10);
-        //driveDistanceTiles(1.0, 80.0, 0.1, 2);
+        setRotation(54.0);
+        driveDistanceTiles(-1.7, 90.0, 0.1, 0.9);
+        LeftRightMotors.stop(brake);
+        //turn to score pre-load
+        turnToAngle(2, 0, 2.0, 0.7);
+        LeftRightMotors.stop(brake);
+        driveDistanceTiles(-0.443, 90.0, 0.1, 0.8);
+        LeftRightMotors.stop(brake);
+        //score pre-load
+        intake3rdStage(1, 0);
+        wait(2, sec);
+        driveDistanceTiles(0.8, 90.0, 0.1, 0.8);
+        LeftRightMotors.stop(brake);
+        //turn to pick up center balls
+        turnToAngle(-40, 0, 2.0, 0.7);
+        LeftRightMotors.stop(brake);
+        /*
+        driveDistanceTiles(-1.4, 90.0, 0.1, 0.9);
+        LeftRightMotors.stop(brake);
+        //intake center balls
+        intakeStore(1, 0);
+        wait(1, sec);
+        //score center balls
+        intake1stStage(1, 0.5);
+        driveDistanceTiles(-0.7, 90.0, 0.1, 0.8);
+        LeftRightMotors.stop(brake);
+        wait(1.5, sec);
+        */
     }
 
     void RedLeft() {
@@ -104,21 +127,21 @@ namespace {
         setRotation(-54.0);
         driveDistanceTiles(-1.6, 90.0, 0.1, 0.9);
         LeftRightMotors.stop(brake);
-        turnToAngle(-2, 0, 2.0, 1.5);
+        turnToAngle(-2, 0, 2.0, 0.9);
         LeftRightMotors.stop(brake);
-        driveDistanceTiles(-0.4, 90.0, 0.1, 0.8);
+        driveDistanceTiles(-0.45, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         intake3rdStage(1, 0);
-        wait(2, sec);
+        wait(3, sec);
         driveDistanceTiles(0.8, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
-        turnToAngle(45, 0, 2.0, 1.5);
+        turnToAngle(45, 0, 2.0, 1);
         LeftRightMotors.stop(brake);
         driveDistanceTiles(-1.4, 90.0, 0.1, 0.9);
         LeftRightMotors.stop(brake);
         intakeStore(1, 0);
         wait(3, sec);
-        driveDistanceTiles(-0.8, 90.0, 0.1, 0.8);
+        driveDistanceTiles(-1, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         intake2ndStage(1, 0);
         wait(2, sec);
@@ -147,6 +170,11 @@ namespace {
     }
 
     void Test() {
-   
+        intake1stStage(1, 0);
+        wait(3, sec);
+        intake2ndStage(1, 0);
+        wait(3, sec);
+        intake3rdStage(1, 0);
+        wait(3, sec);
     }
 }

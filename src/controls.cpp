@@ -58,7 +58,7 @@ namespace controls {
         botdrive::control();
         // 3rd Stage + 2nd Stage
         backIntake::control(
-            (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing(), 12.0)
+            (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
         );
         bottomFrontIntake::control(
             (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
