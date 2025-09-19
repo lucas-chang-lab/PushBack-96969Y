@@ -69,7 +69,7 @@ namespace autonFunctions {
         while(!driveTargetDistancePid.isSettled() && timeout.value() < runTimeout) {
             double distanceError;
             double traveledRev = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
-            double currentTravelDistanceInches = traveledRev  * trackingLookWheelCircumIn; 
+            double currentTravelDistanceInches = traveledRev  * driveWheelCircumIn; 
             distanceError = targetDistanceInches - currentTravelDistanceInches;
 
             //printf("Target Distance: %.2f inches\n", targetDistanceInches);
@@ -111,7 +111,7 @@ namespace autonFunctions {
         while((!driveTargetDistancePid.isSettled() || !rotateTargetAnglePid.isSettled()) && timeout.value() < runTimeout) {
             double distanceError;
             double traveledRev = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
-            double currentTravelDistanceInches = traveledRev  * trackingLookWheelCircumIn; 
+            double currentTravelDistanceInches = traveledRev  * driveWheelCircumIn; 
             distanceError = targetDistanceInches - currentTravelDistanceInches;
 
             double rotateError = rotation - InertialSensor.rotation(degrees);

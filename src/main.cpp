@@ -19,12 +19,12 @@ competition Competition;
 timer drivingTimer;
 
 void pre_auton() {
-    InertialSensor.calibrate();
+    preauton::runPreauton();
     preauton::waitCalibrating();
     //controls::startThreads();
     //controls::preauton();
 
-    Brain.Screen.clearScreen();
+    //Brain.Screen.clearScreen();
     //Brain.Screen.printAt(10, 50, "pre_auton done");
 }
 
