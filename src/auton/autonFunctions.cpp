@@ -69,7 +69,7 @@ namespace autonFunctions {
         while(!driveTargetDistancePid.isSettled() && timeout.value() < runTimeout) {
             double distanceError;
             double traveledRev = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
-            double currentTravelDistanceInches = traveledRev  * driveWheelCircumIn; 
+            double currentTravelDistanceInches = traveledRev  *  trackingLookWheelCircumIn; 
             distanceError = targetDistanceInches - currentTravelDistanceInches;
 
             //printf("Target Distance: %.2f inches\n", targetDistanceInches);
@@ -87,7 +87,7 @@ namespace autonFunctions {
             driveVoltage(genutil::pctToVolt(leftVelocityPct), genutil::pctToVolt(rightVelocityPct), 10.0);
             task::sleep(20);
         }
-        printf("Ending \n");
+        //printf("Ending \n");
         LeftRightMotors.stop(brakeType::brake);
     }
 
@@ -159,8 +159,8 @@ namespace autonFunctions {
 
     void intakeStore(int state, double delaySec) {
         topFrontIntake::setState(state, delaySec);
-        bottomFrontIntake::setState(-state, delaySec);
-        backIntake::setState(state, delaySec);
+        bottomFrontIntake::setState(state, delaySec);
+        backIntake::setState(-state, delaySec);
     }
 }
 

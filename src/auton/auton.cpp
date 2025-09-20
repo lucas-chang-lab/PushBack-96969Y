@@ -6,7 +6,7 @@
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::test;
+    autonomousType currentAutonType = autonomousType::redRight;
     int auton_allianceId;
     
     void RedRight();
@@ -93,28 +93,26 @@ namespace {
     void RedRight() {
         preauton::waitCalibrating();
         setRotation(54.0);
-        driveDistanceTiles(-1.7, 90.0, 0.1, 0.9);
+        driveDistanceTiles(-1.62, 90.0, 0.1, 0.9);
         LeftRightMotors.stop(brake);
         //turn to score pre-load
-        turnToAngle(2, 0, 2.0, 0.7);
+        turnToAngle(2.5, 0, 2.0, 0.7);
         LeftRightMotors.stop(brake);
-        driveDistanceTiles(-0.26, 90.0, 0.1, 0.8);
+        driveDistanceTiles(-0.45, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         //score pre-load
         intake3rdStage(1, 0);
-        wait(0.8, sec);
+        wait(1.5, sec);
         driveDistanceTiles(0.87, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
-        //turn to pick up center balls
-        
-        turnToAngle(-42, 0, 2.0, 0.7);
+        //turn to pick up center balls      
+        turnToAngle(-41, 0, 2.0, 0.7);
         LeftRightMotors.stop(brake);
-        driveDistanceTiles(-1.57, 90.0, 0.1, 0.9);
+        driveDistanceTiles(-1.4, 90.0, 0.1, 0.9);
         LeftRightMotors.stop(brake);
         //intake center balls
-        intakeStore(1, 0);
-        wait(0.3, sec);
-        turnToAngle(-38, 0, 2.0, 0.7);
+        intake3rdStage(1, 0);
+        wait(0.1, sec);
         //score center balls
         intake1stStage(1, 0.5);
         driveDistanceTiles(-0.6, 90.0, 0.1, 0.8);
@@ -132,16 +130,16 @@ namespace {
         driveDistanceTiles(-0.45, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         intake3rdStage(1, 0);
-        wait(3, sec);
+        wait(1.5, sec);
         driveDistanceTiles(0.8, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         turnToAngle(45, 0, 2.0, 1);
         LeftRightMotors.stop(brake);
         driveDistanceTiles(-1.4, 90.0, 0.1, 0.9);
         LeftRightMotors.stop(brake);
-        intakeStore(1, 0);
-        wait(3, sec);
-        driveDistanceTiles(-1, 90.0, 0.1, 0.8);
+        intake2ndStage(1, 0);
+        wait(0.2, sec);
+        driveDistanceTiles(-0.9, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         intake2ndStage(1, 0);
         wait(2, sec);
@@ -171,6 +169,13 @@ namespace {
 
     void Test() {
         preauton::waitCalibrating();
-        driveAndTurnDistanceTiles(1, 90, 90, 100, 0, 0.1, 2.0);
+        intakeStore(1, 0);
+        wait(5, sec);
+        intake1stStage(1, 0);
+        wait(5, sec);
+        intake2ndStage(1, 0);
+        wait(5, sec);
+        intake3rdStage(1, 0);
+        wait(5, sec);
     }
 }
