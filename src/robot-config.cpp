@@ -24,7 +24,7 @@ motor intakeMotor3(PORT10, ratio18_1, false);
 pneumatics botArmPneumatics(Brain.ThreeWirePort.A);
 
 rotation LookRotation(PORT20);
-rotation RightRotation(PORT19);
+rotation RightRotation(PORT5);
 
 triport Expander1(PORT6);
 

@@ -18,7 +18,7 @@ namespace {
     void DrivingSkill();
     void Test();
 
-    bool userRunningAutonomous = true;
+    bool userRunningAutonomous = false;
 }
 
 namespace auton {
