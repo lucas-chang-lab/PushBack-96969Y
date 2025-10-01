@@ -57,9 +57,11 @@ namespace {
             double absoluteDeltaLook = localDeltaLook * cos(rotateAngle) - localDeltaLook * sin(rotateAngle);
             double absoluteDeltaRight = localDeltaRight * sin(rotateAngle) + localDeltaRight * cos(rotateAngle);
 
-            double revToTiles = (1.0 / botinfo::trackingLookWheelSensorGearRatio) * botinfo::trackingLookWheelCircumIn / field::tileLengthIn;
-            x += absoluteDeltaRight * revToTiles;
-            y += absoluteDeltaLook * revToTiles;
+            double revToTilesX = (1.0 / botinfo::trackingLookWheelSensorGearRatio) * botinfo::trackingLookWheelCircumIn / field::tileLengthIn;
+            double revToTilesY = (1.0 / botinfo::driveWheelMotorGearRatio) * botinfo::driveWheelCircumIn / field::tileLengthIn;
+            
+            x += absoluteDeltaRight * revToTilesX;
+            y += absoluteDeltaLook * revToTilesY;
             angle = newAngle;
 
             oldLook = newLook;

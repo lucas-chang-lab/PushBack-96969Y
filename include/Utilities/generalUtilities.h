@@ -9,4 +9,9 @@ namespace genutil {
     double radToDeg(double radians);
     bool isWithin(double value, double target, double withinRange);
     int signum(double value);
+
+    double wrapAngle(double angle);
+
+    void distanceTesting();
+    void odometryTesting();
 }

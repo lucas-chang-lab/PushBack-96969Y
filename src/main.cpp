@@ -11,6 +11,8 @@
 #include "controls.h"
 #include "Auton/auton.h"
 #include "Auton/preauton.h"
+#include "AutonUtilities/odometry.h"
+#include "Utilities/generalUtilities.h"
 
 
 using namespace vex;
@@ -31,7 +33,7 @@ void pre_auton() {
 void autonomous() {
     timer benchmarkTimer;
     benchmarkTimer.reset();
-
+    odometry::startThreads();
     auton::runAutonomous();
     printf("Auton Time: %.2f seconds \n", benchmarkTimer.value());
 }
@@ -59,8 +61,9 @@ int main() {
     pre_auton();
     Competition.autonomous(autonomous);
     Competition.drivercontrol(usercontrol);
-
     while(1) {
+        //genutil::distanceTesting();
+        genutil::odometryTesting();
         wait(100, msec);
     }
 }

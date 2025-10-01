@@ -7,6 +7,7 @@
 #include "Mechanics/topFrontIntake.h"
 #include "Mechanics/backIntake.h"
 #include "Mechanics/bottomFrontIntake.h"
+#include "AutonUtilities/odometry.h"
 
 namespace {
     using namespace genutil;
@@ -69,7 +70,7 @@ namespace autonFunctions {
         while(!driveTargetDistancePid.isSettled() && timeout.value() < runTimeout) {
             double distanceError;
             double traveledRev = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
-            double currentTravelDistanceInches = traveledRev  *  trackingLookWheelCircumIn; 
+            double currentTravelDistanceInches = traveledRev  *  driveWheelCircumIn; 
             distanceError = targetDistanceInches - currentTravelDistanceInches;
 
             //printf("Target Distance: %.2f inches\n", targetDistanceInches);
@@ -118,9 +119,9 @@ namespace autonFunctions {
 
             //printf("Target Distance: %.2f inches\n", targetDistanceInches);
             //printf("Current Distance: %.2f inches\n", currentTravelDistanceInches);
-            printf("Distance Error: %.2f inches\n", distanceError);
-            printf("Rotate Error: %.2f\n", rotateError);
-            printf("Timeout: %.2f seconds\n", timeout.value());
+            //printf("Distance Error: %.2f inches\n", distanceError);
+            //printf("Rotate Error: %.2f\n", rotateError);
+            //printf("Timeout: %.2f seconds\n", timeout.value());
             //printf("driveTargetDistancePid Output: %.2f\n", driveTargetDistancePid.getOutput());
             //printf("rotateTargetAnglePid Output: %.2f\n", rotateTargetAnglePid.getOutput());
 
@@ -132,6 +133,64 @@ namespace autonFunctions {
             double leftMotorVelocityPct = velocityPct + rotationPct * leftVelocityFactor;
             double rightMotorVelocityPct = velocityPct + rotationPct * rightVelocityFactor;
 
+            driveVoltage(genutil::pctToVolt(leftMotorVelocityPct), genutil::pctToVolt(rightMotorVelocityPct), 10.0);
+            task::sleep(20);
+        }
+        printf("Ending \n");
+        LeftRightMotors.stop(brakeType::brake);
+    }
+
+    void goToPoseTiles(double targetX, double targetY, double targetAngle, double maxPct, double errorRange, double runTimeout) {
+        LeftMotors.setPosition(0, rev);
+        RightMotors.setPosition(0, rev);
+
+        PIDControl driveTargetDistancePid(4.3, 0, 46, errorRange);
+        PIDControl faceTargetPid(0.8, 0, 0.2, 10.0);
+        PIDControl rotateTargetAnglePid(1, 0.001, 0.4, defaultTurnAngleErrorRange);
+        timer timeout;
+        timeout.reset();
+        printf("Starting \n");
+        while((!driveTargetDistancePid.isSettled() || !rotateTargetAnglePid.isSettled()) && timeout.value() < runTimeout) {
+            double currentX = odometry::getX();
+            double currentY = odometry::getY();
+            double currentAngle = odometry::getAngle();
+
+            double deltaX = targetX - currentX;
+            double deltaY = targetY - currentY;
+            double distanceError = sqrt(deltaX * deltaX + deltaY * deltaY);
+
+            double angleToTarget = atan2(deltaY, deltaX) * 180.0 / M_PI;
+            double angleError = angleToTarget - currentAngle;
+            angleError = genutil::wrapAngle(angleError);
+
+            double rotateError = targetAngle - currentAngle;
+            rotateError = genutil::wrapAngle(rotateError);
+
+            //printf("Current X: %.2f tiles\n", currentX);
+            //printf("Current Y: %.2f tiles\n", currentY);
+            //printf("Current Angle: %.2f degrees\n", currentAngle);
+            //printf("Distance Error: %.2f tiles\n", distanceError);
+            //printf("Angle to Target: %.2f degrees\n", angleToTarget);
+            //printf("Angle Error: %.2f degrees\n", angleError);
+            //printf("Rotate Error: %.2f degrees\n", rotateError);
+            //printf("Timeout: %.2f seconds\n", timeout.value());
+            //printf("driveTargetDistancePid Output: %.2f\n", driveTargetDistancePid.getOutput());
+            //printf("rotateTargetAnglePid Output: %.2f\n", rotateTargetAnglePid.getOutput());
+
+            driveTargetDistancePid.computeFromError(distanceError);
+            double velocityPct = fmin(maxPct, fmax(-maxPct, driveTargetDistancePid.getOutput()));
+
+            double rotationPct;
+            if (distanceError > errorRange) {
+                faceTargetPid.computeFromError(angleError);
+                rotationPct = fmin(maxPct, fmax(-maxPct, faceTargetPid.getOutput()));
+            } else {
+                rotateTargetAnglePid.computeFromError(rotateError);
+                rotationPct = fmin(maxPct, fmax(-maxPct, rotateTargetAnglePid.getOutput()));
+            }
+
+            double leftMotorVelocityPct = velocityPct - rotationPct;
+            double rightMotorVelocityPct = velocityPct + rotationPct;   
             driveVoltage(genutil::pctToVolt(leftMotorVelocityPct), genutil::pctToVolt(rightMotorVelocityPct), 10.0);
             task::sleep(20);
         }

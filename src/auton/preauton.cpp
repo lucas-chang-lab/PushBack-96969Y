@@ -1,4 +1,5 @@
 #include "Auton/preauton.h"
+#include "AutonUtilities/odometry.h"
 
 namespace preauton {
     void runPreauton() {

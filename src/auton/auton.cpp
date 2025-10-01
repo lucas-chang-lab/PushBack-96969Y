@@ -1,12 +1,13 @@
 #include "Auton/auton.h"
 #include "Auton/autonFunctions.h"
 #include "Auton/preauton.h"
+#include "AutonUtilities/odometry.h"
 #include "main.h"
 
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::redRight;
+    autonomousType currentAutonType = autonomousType::test;
     int auton_allianceId;
     
     void RedRight();
@@ -92,6 +93,7 @@ namespace auton {
 namespace {
     void RedRight() {
         preauton::waitCalibrating();
+        odometry::setValues(0,0,0);
         setRotation(54.0);
         driveDistanceTiles(-1.62, 90.0, 0.1, 0.9);
         LeftRightMotors.stop(brake);
@@ -115,15 +117,16 @@ namespace {
         wait(0.1, sec);
         //score center balls
         intake1stStage(1, 0.5);
-        driveDistanceTiles(-0.6, 90.0, 0.1, 0.8);
+        driveDistanceTiles(-0.7, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
         wait(1.5, sec);
     }
 
     void RedLeft() {
         preauton::waitCalibrating();
+        odometry::setValues(0,0,0);
         setRotation(-54.0);
-        driveDistanceTiles(-1.6, 90.0, 0.1, 0.9);
+        driveDistanceTiles(-1.56, 90.0, 0.1, 0.9);
         LeftRightMotors.stop(brake);
         turnToAngle(-2, 0, 2.0, 0.9);
         LeftRightMotors.stop(brake);
@@ -133,7 +136,7 @@ namespace {
         wait(1.5, sec);
         driveDistanceTiles(0.8, 90.0, 0.1, 0.8);
         LeftRightMotors.stop(brake);
-        turnToAngle(45, 0, 2.0, 1);
+        turnToAngle(46, 0, 2.0, 1);
         LeftRightMotors.stop(brake);
         driveDistanceTiles(-1.4, 90.0, 0.1, 0.9);
         LeftRightMotors.stop(brake);
@@ -147,6 +150,7 @@ namespace {
 
     void BlueRight() {
         preauton::waitCalibrating();
+        odometry::setValues(0,0,0);
         intake2ndStage(1, 0);
         wait(2, sec);
         intake3rdStage(1, 0);
@@ -155,6 +159,7 @@ namespace {
 
     void BlueLeft() {
         preauton::waitCalibrating();
+        odometry::setValues(0,0,0);
         intakeStore(1, 0);
         wait(5, sec);
     }
@@ -169,13 +174,10 @@ namespace {
 
     void Test() {
         preauton::waitCalibrating();
-        intakeStore(1, 0);
-        wait(5, sec);
-        intake1stStage(1, 0);
-        wait(5, sec);
-        intake2ndStage(1, 0);
-        wait(5, sec);
-        intake3rdStage(1, 0);
-        wait(5, sec);
+        odometry::startThreads();
+        odometry::setValues(0,0,0);
+        setRotation(0);
+        driveDistanceTiles(1.0, 50.0, 0.1, 3.0);
+        turnToAngle(90.0, 0, 2.0, 3.0);
     }
 }

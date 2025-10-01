@@ -102,13 +102,13 @@ namespace {
         leftPct *= scaleFactor;
         rightPct *= scaleFactor;
         if (fabs(rightPct) < 5) {
-            RightMotors.stop(brake);
+            RightMotors.stop(coast);
         } else {
             RightMotors.spin(fwd, 12.0 * (rightPct / 100.0), volt);
         }
 
         if (fabs(leftPct) < 5) {
-            LeftMotors.stop(brake);
+            LeftMotors.stop(coast);
         } else {
             LeftMotors.spin(fwd, 12.0 * (leftPct / 100.0), volt);
         }

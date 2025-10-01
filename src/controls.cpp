@@ -29,7 +29,7 @@ namespace controls {
 
         });
         Controller1.ButtonB.pressed([]() -> void {
-
+            topFrontIntake::reverseIntake();
         });
         Controller1.ButtonL2.pressed([]() -> void {
 
@@ -38,7 +38,7 @@ namespace controls {
 
         });
         Controller1.ButtonUp.pressed([]() -> void {
-            topFrontIntake::reverseIntake();
+            
         });
 
     }
