@@ -2,6 +2,8 @@
 #include "main.h"
 
 namespace botPneumatics {
+	int _taskState = 0; // 0 = closed, 1 = open
+	double _taskDelay = 0;
 	void setState(bool state, double delaySec) {
 		// Check for instant set
 		if (delaySec <= 1e-9) {

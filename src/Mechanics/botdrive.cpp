@@ -95,8 +95,8 @@ namespace {
         double leftPolarRotatePct =  initPolarRotatePct * (leftRotateRadiusIn / halfRobotLengthIn);
         double rightPolarRotatePct = initPolarRotatePct * (rightRotateRadiusIn / halfRobotLengthIn);
 
-        double leftPct = initLeftPct + leftPolarRotatePct;
-        double rightPct = initRightPct - rightPolarRotatePct;
+        double leftPct = initLeftPct - leftPolarRotatePct;
+        double rightPct = initRightPct + rightPolarRotatePct;
 
         double scaleFactor = -maxDriveVelocityPct / fmax(maxDriveVelocityPct, fmax(abs(leftPct), fabs(rightPct)));
         leftPct *= scaleFactor;

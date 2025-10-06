@@ -23,6 +23,7 @@ timer drivingTimer;
 void pre_auton() {
     preauton::runPreauton();
     preauton::waitCalibrating();
+    
     //controls::startThreads();
     //controls::preauton();
 
@@ -40,7 +41,7 @@ void autonomous() {
 
 void usercontrol() {
     drivingTimer.reset();
-
+    
     if (auton::isUserRunningAuton()) {
         autonomous();
     }

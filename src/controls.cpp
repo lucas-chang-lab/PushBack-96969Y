@@ -17,7 +17,7 @@ namespace controls {
 
     void setUpKeybinds() {
         Controller2.ButtonX.pressed([]() -> void {
-            botPneumatics::switchState();
+            
         });
         Controller1.ButtonX.pressed([]() -> void {
 
@@ -29,7 +29,7 @@ namespace controls {
 
         });
         Controller1.ButtonB.pressed([]() -> void {
-            topFrontIntake::reverseIntake();
+            botPneumatics::switchState();
         });
         Controller1.ButtonL2.pressed([]() -> void {
 
