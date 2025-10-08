@@ -22,13 +22,13 @@ namespace controls {
 
         });
         Controller1.ButtonY.pressed([]() -> void {
-
+            bottomFrontIntake::isSwitchedState = !bottomFrontIntake::isSwitchedState;
         });
         Controller1.ButtonA.pressed([]() -> void {
-
+            botPneumatics::switchState();
         });
         Controller1.ButtonB.pressed([]() -> void {
-            botPneumatics::switchState();
+            bottomFrontIntake::locked = !bottomFrontIntake::locked;
         });
         Controller1.ButtonL2.pressed([]() -> void {
 

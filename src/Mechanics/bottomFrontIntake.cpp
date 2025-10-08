@@ -9,6 +9,8 @@ namespace {
 namespace bottomFrontIntake {
     int _taskState = 0; // 0 = stop, 1 = intake, -1 = outtake
     double _taskDelay = 0;
+    bool locked = false;
+    bool isSwitchedState = false;
 
     void runThread() {
         while (1) {
@@ -50,7 +52,13 @@ namespace bottomFrontIntake {
     }
 
     void control(int state) {
-        if (canControl()) {
+        if (locked){
+            intakeMotor2.stop(brake);
+        }
+        else if (canControl()) {
+            if (isSwitchedState) {
+                state = -state;
+            }
             switch (state) {
             case 1:
                 intakeMotor2.spin(fwd, 12, volt);
@@ -59,11 +67,11 @@ namespace bottomFrontIntake {
                 intakeMotor2.spin(reverse, 12, volt);
                 break;
             default:
-                intakeMotor2.stop(coast);
+                intakeMotor2.stop(brake);
                 break;
             }
         } else {
-            intakeMotor2.stop(coast);
+            intakeMotor2.stop(brake);
         }
     }
 

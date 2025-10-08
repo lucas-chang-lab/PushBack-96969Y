@@ -16,4 +16,6 @@ namespace bottomFrontIntake {
     
     extern int _taskState;
     extern double _taskDelay;
+    extern bool locked;
+    extern bool isSwitchedState;
 }
