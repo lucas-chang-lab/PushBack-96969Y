@@ -2,7 +2,6 @@
 #include "Mechanics/botDrive.h"
 #include "Mechanics/backIntake.h"
 #include "Mechanics/bottomFrontIntake.h"
-#include "Mechanics/topFrontIntake.h"
 #include "Mechanics/botPneumatics.h"
 #include "main.h"
 
@@ -63,9 +62,7 @@ namespace controls {
         bottomFrontIntake::control(
             (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
         );
-        topFrontIntake::control(
-            (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
-        );
+       
         
     }
 }

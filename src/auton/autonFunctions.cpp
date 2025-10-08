@@ -4,7 +4,6 @@
 #include "Utilities/robotInfo.h"
 #include "robot-config.h"
 #include "AutonUtilities/Pid.h"
-#include "Mechanics/topFrontIntake.h"
 #include "Mechanics/backIntake.h"
 #include "Mechanics/bottomFrontIntake.h"
 #include "AutonUtilities/odometry.h"
@@ -199,25 +198,21 @@ namespace autonFunctions {
     }
 
     void intake3rdStage(int state, double delaySec) {
-        topFrontIntake::setState(-state, delaySec);
         bottomFrontIntake::setState(-state, delaySec);
         backIntake::setState(-state, delaySec);
     }
 
     void intake2ndStage(int state, double delaySec) {
-        topFrontIntake::setState(state, delaySec);
         bottomFrontIntake::setState(-state, delaySec);
         backIntake::setState(-state, delaySec);
     }
 
     void intake1stStage(int state, double delaySec) {
-        topFrontIntake::setState(state, delaySec);
         bottomFrontIntake::setState(state, delaySec);
         backIntake::setState(state, delaySec);
     }
 
     void intakeStore(int state, double delaySec) {
-        topFrontIntake::setState(state, delaySec);
         bottomFrontIntake::setState(state, delaySec);
         backIntake::setState(-state, delaySec);
     }

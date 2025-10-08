@@ -95,20 +95,20 @@ namespace {
         double leftPolarRotatePct =  initPolarRotatePct * (leftRotateRadiusIn / halfRobotLengthIn);
         double rightPolarRotatePct = initPolarRotatePct * (rightRotateRadiusIn / halfRobotLengthIn);
 
-        double leftPct = initLeftPct - leftPolarRotatePct;
-        double rightPct = initRightPct + rightPolarRotatePct;
+        double leftPct = initLeftPct + leftPolarRotatePct;
+        double rightPct = initRightPct - rightPolarRotatePct;
 
         double scaleFactor = -maxDriveVelocityPct / fmax(maxDriveVelocityPct, fmax(abs(leftPct), fabs(rightPct)));
         leftPct *= scaleFactor;
         rightPct *= scaleFactor;
         if (fabs(rightPct) < 5) {
-            RightMotors.stop(coast);
+            RightMotors.stop(brake);
         } else {
             RightMotors.spin(fwd, 12.0 * (rightPct / 100.0), volt);
         }
 
         if (fabs(leftPct) < 5) {
-            LeftMotors.stop(coast);
+            LeftMotors.stop(brake);
         } else {
             LeftMotors.spin(fwd, 12.0 * (leftPct / 100.0), volt);
         }
