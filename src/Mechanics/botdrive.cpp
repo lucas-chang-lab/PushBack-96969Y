@@ -1,6 +1,7 @@
 #include "AutonUtilities/Pid.h"
 #include "Mechanics/botDrive.h"
 #include "Utilities/robotInfo.h"
+
 #include "main.h"   
 
 namespace {
@@ -75,7 +76,13 @@ namespace {
         double axis1 = Controller1.Axis1.position();
         if (fabs(axis1) < 2) axis1 = 0;
 
-        drive(axis3, axis3, axis1 * 0.8);
+        double forwardCurve = 4.0;
+        double turnCurve = 5.0;
+
+        double curvea3 = (powf(M_E, -(forwardCurve/ 10)) + powf(M_E, (abs(axis3) - 100) / 10) * (1 - powf(M_E, -(forwardCurve / 10)))) * axis3;
+        double curvea1 = (powf(M_E, -(turnCurve/ 10)) + powf(M_E, (abs(axis1) - 100) / 10) * (1 - powf(M_E, -(turnCurve / 10)))) * axis1;
+
+        drive(curvea3, curvea3, curvea1 * 0.65);
     }
 
     /// @brief Drive in arcade mode (Axis3 forward/backward, Axis4 rotation)
