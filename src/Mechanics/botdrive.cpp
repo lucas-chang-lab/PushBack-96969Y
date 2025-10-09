@@ -104,13 +104,13 @@ namespace {
         if (fabs(rightPct) < 5) {
             RightMotors.stop(brake);
         } else {
-            RightMotors.spin(fwd, 12.0 * (rightPct / 100.0), volt);
+            RightMotors.spin(fwd, 12.7 * (rightPct / 100.0), volt);
         }
 
         if (fabs(leftPct) < 5) {
             LeftMotors.stop(brake);
         } else {
-            LeftMotors.spin(fwd, 12.0 * (leftPct / 100.0), volt);
+            LeftMotors.spin(fwd, 12.7 * (leftPct / 100.0), volt);
         }
         
     }
