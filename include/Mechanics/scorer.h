@@ -1,7 +1,7 @@
 #pragma once
 
 
-namespace bottomFrontIntake {
+namespace scorer {
     void runThread();
 
     void preauton();

@@ -198,22 +198,22 @@ namespace autonFunctions {
     }
 
     void intake3rdStage(int state, double delaySec) {
-        bottomFrontIntake::setState(-state, delaySec);
+        scorer::setState(-state, delaySec);
         backIntake::setState(-state, delaySec);
     }
 
     void intake2ndStage(int state, double delaySec) {
-        bottomFrontIntake::setState(-state, delaySec);
+        scorer::setState(-state, delaySec);
         backIntake::setState(-state, delaySec);
     }
 
     void intake1stStage(int state, double delaySec) {
-        bottomFrontIntake::setState(state, delaySec);
+        scorer::setState(state, delaySec);
         backIntake::setState(state, delaySec);
     }
 
     void intakeStore(int state, double delaySec) {
-        bottomFrontIntake::setState(state, delaySec);
+        scorer::setState(state, delaySec);
         backIntake::setState(-state, delaySec);
     }
 }

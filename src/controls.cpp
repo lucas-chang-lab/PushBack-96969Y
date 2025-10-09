@@ -23,13 +23,15 @@ namespace controls {
 
         });
         Controller1.ButtonY.pressed([]() -> void {
-            bottomFrontIntake::isSwitchedState = !bottomFrontIntake::isSwitchedState;
+            // scorer::locked = false;
+            // scorer::isSwitchedState = !scorer::isSwitchedState;
         });
         Controller1.ButtonA.pressed([]() -> void {
+            scorer::locked = false;
             botPneumatics::switchState();
         });
         Controller1.ButtonB.pressed([]() -> void {
-            bottomFrontIntake::locked = !bottomFrontIntake::locked;
+            scorer::locked = !scorer::locked;
         });
         Controller1.ButtonL2.pressed([]() -> void {
 
@@ -62,10 +64,10 @@ namespace controls {
         botdrive::control();
         // 3rd Stage + 2nd Stage
         backIntake::control(
-            (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
+            (int)(Controller1.ButtonR2.pressing()) - (int)(Controller1.ButtonR1.pressing())
         );
-        bottomFrontIntake::control(
-            (int)(Controller1.ButtonR1.pressing()) - (int)(Controller1.ButtonR2.pressing())
+        scorer::control(
+            (int)(Controller1.ButtonR2.pressing()) - (int)(Controller1.ButtonR1.pressing())
         );
        
         

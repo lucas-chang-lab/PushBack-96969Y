@@ -22,7 +22,7 @@ motor intakeMotor2(PORT18, ratio18_1, false);
 
 
 pneumatics botArmPneumatics(Brain.ThreeWirePort.A);
-pneumatics trapDoorPneumatics(Brain.ThreeWirePort.B);
+pneumatics trapDoorPneumatics(Brain.ThreeWirePort.C);
 
 rotation LookRotation(PORT4);
 rotation RightRotation(PORT5);
