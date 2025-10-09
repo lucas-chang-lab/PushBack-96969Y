@@ -1,4 +1,4 @@
-#include "Mechanics/bottomFrontIntake.h"
+#include "Mechanics/frontIntake.h"
 #include "robot-config.h"
 #include "main.h"
 
@@ -6,11 +6,9 @@ namespace {
     bool controlState = true;
 }
 
-namespace bottomFrontIntake {
+namespace backIntake {
     int _taskState = 0; // 0 = stop, 1 = intake, -1 = outtake
     double _taskDelay = 0;
-    bool locked = false;
-    bool isSwitchedState = false;
 
     void runThread() {
         while (1) {
@@ -19,7 +17,7 @@ namespace bottomFrontIntake {
     }
 
     void preauton() {
-        intakeMotor2.stop(hold);
+        intakeMotor.stop(hold);
     }
 
     void setState(int state, double delaySec) {
@@ -52,26 +50,20 @@ namespace bottomFrontIntake {
     }
 
     void control(int state) {
-        if (locked){
-            intakeMotor2.stop(brake);
-        }
-        else if (canControl()) {
-            if (isSwitchedState) {
-                state = -state;
-            }
+        if (canControl()) {
             switch (state) {
             case 1:
-                intakeMotor2.spin(fwd, 12, volt);
+                intakeMotor.spin(fwd, 12.0, volt);
                 break;
             case -1:
-                intakeMotor2.spin(reverse, 12, volt);
+                intakeMotor.spin(reverse, 12.0, volt);
                 break;
             default:
-                intakeMotor2.stop(brake);
+                intakeMotor.stop(coast);
                 break;
             }
         } else {
-            intakeMotor2.stop(brake);
+            intakeMotor.stop(coast);
         }
     }
 

@@ -4,8 +4,8 @@
 #include "Utilities/robotInfo.h"
 #include "robot-config.h"
 #include "AutonUtilities/Pid.h"
-#include "Mechanics/backIntake.h"
-#include "Mechanics/bottomFrontIntake.h"
+#include "Mechanics/frontIntake.h"
+#include "Mechanics/scorer.h"
 #include "AutonUtilities/odometry.h"
 
 namespace {
