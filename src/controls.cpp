@@ -1,8 +1,9 @@
 #include "controls.h"
 #include "Mechanics/botDrive.h"
-#include "Mechanics/backIntake.h"
-#include "Mechanics/bottomFrontIntake.h"
+#include "Mechanics/frontIntake.h"
+#include "Mechanics/scorer.h"
 #include "Mechanics/botPneumatics.h"
+#include "Mechanics/trapDoorPneumatics.h"
 #include "main.h"
 
 
@@ -39,6 +40,9 @@ namespace controls {
         Controller1.ButtonUp.pressed([]() -> void {
             
         });
+        Controller1.ButtonDown.pressed([]() -> void {
+            trapDoor::switchState();
+        });
 
     }
 
@@ -46,6 +50,7 @@ namespace controls {
         botdrive::preauton();
         controls::startThreads();
         botPneumatics::preauton();
+        trapDoor::preauton();
     }
 
 
