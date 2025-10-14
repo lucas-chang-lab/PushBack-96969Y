@@ -27,8 +27,15 @@ namespace scorer {
                     printf("h = %.2f\n", h);
                     filtering = ((filterColor == 'r' && isRed) || (filterColor == 'b' && isBlue)) && filter;
                     if(filtering) {
-                        intakeMotor2.spin(reverse, 8, volt);
-				        wait(250, msec);
+                        if (botPneumatics::botArmPneumatics.value() == 0 ) {
+                            botPneumatics::setState(1);
+                            intakeMotor2.spin(reverse, 12, volt);
+				            wait(250, msec);
+                            botPneumatics::setState(0);
+                        } else {
+                            intakeMotor2.spin(reverse, 12, volt);
+				            wait(250, msec);
+                        }
                     }
                 //}
             }
