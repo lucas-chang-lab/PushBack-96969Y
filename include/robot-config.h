@@ -20,6 +20,9 @@ extern motor intakeMotor;
 extern motor intakeMotor2;
 extern pneumatics botArmPneumatics;
 extern pneumatics trapDoorPneumatics;
+
+extern optical opticalSensor;
+
 extern rotation LookRotation;
 extern rotation RightRotation;
 

@@ -9,8 +9,14 @@
 
 namespace controls {
     void startThreads() {
-        task intakeThread([]() -> int {
-            backIntake::runThread();
+        /*task intakeThread([]() -> int {
+            frontIntake::runThread();
+            return 1;
+        });*/
+        
+        task scorerThread([]() -> int {
+            
+            scorer::runThread();
             return 1;
         });
     }
@@ -20,7 +26,7 @@ namespace controls {
             
         });
         Controller1.ButtonX.pressed([]() -> void {
-
+            scorer::filter = !scorer::filter;
         });
         Controller1.ButtonY.pressed([]() -> void {
             // scorer::locked = false;
@@ -49,7 +55,9 @@ namespace controls {
     }
 
     void preauton() {
-        botdrive::preauton();
+        opticalSensor.setLight(ledState::on);
+        opticalSensor.setLightPower(30);
+        botdrive::preauton(); 
         controls::startThreads();
         botPneumatics::preauton();
         trapDoor::preauton();
@@ -63,12 +71,15 @@ namespace controls {
     void doControls() {
         botdrive::control();
         // 3rd Stage + 2nd Stage
-        backIntake::control(
+        frontIntake::control(
             (int)(Controller1.ButtonR2.pressing()) - (int)(Controller1.ButtonR1.pressing())
         );
-        scorer::control(
-            (int)(Controller1.ButtonR2.pressing()) - (int)(Controller1.ButtonR1.pressing())
-        );
+        if (!scorer::filtering) {
+            scorer::control(
+                (int)(Controller1.ButtonR2.pressing()) - (int)(Controller1.ButtonR1.pressing())
+            );
+        }
+        
        
         
     }

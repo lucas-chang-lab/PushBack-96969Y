@@ -2,12 +2,13 @@
 #include "Auton/autonFunctions.h"
 #include "Auton/preauton.h"
 #include "AutonUtilities/odometry.h"
+#include "Mechanics/scorer.h"
 #include "main.h"
 
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::test;
+    autonomousType currentAutonType = autonomousType::redRight;
     int auton_allianceId;
     
     void RedRight();
@@ -28,15 +29,19 @@ namespace auton {
         switch (currentAutonType) {
             case redRight:
                 Brain.Screen.print("Auton Type: RedRight");
+                scorer::filterColor = 'b';
                 break;
             case redLeft:
                 Brain.Screen.print("Auton Type: RedLeft");
+                scorer::filterColor = 'b';
                 break;
             case blueRight:
                 Brain.Screen.print("Auton Type: BlueRight");
+                scorer::filterColor = 'r';
                 break;
             case blueLeft:
                 Brain.Screen.print("Auton Type: BlueLeft");
+                scorer::filterColor = 'r';
                 break;
             case autonSkill:
                 Brain.Screen.print("Auton Type: Auton Skill");

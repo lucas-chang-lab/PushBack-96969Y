@@ -6,7 +6,7 @@ namespace {
     bool controlState = true;
 }
 
-namespace backIntake {
+namespace frontIntake {
     int _taskState = 0; // 0 = stop, 1 = intake, -1 = outtake
     double _taskDelay = 0;
 

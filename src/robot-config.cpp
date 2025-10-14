@@ -24,6 +24,8 @@ motor intakeMotor2(PORT18, ratio18_1, false);
 pneumatics botArmPneumatics(Brain.ThreeWirePort.A);
 pneumatics trapDoorPneumatics(Brain.ThreeWirePort.C);
 
+optical opticalSensor(PORT12);
+
 rotation LookRotation(PORT4);
 rotation RightRotation(PORT5);
 

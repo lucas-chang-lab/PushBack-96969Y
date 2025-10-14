@@ -14,8 +14,11 @@ namespace scorer {
 
     bool canControl();
     
+    extern bool filtering;
     extern int _taskState;
     extern double _taskDelay;
     extern bool locked;
     extern bool isSwitchedState;
+    extern char filterColor; // 'r' = red, 'b' = blue,
+    extern bool filter;
 }

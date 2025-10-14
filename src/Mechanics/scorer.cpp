@@ -4,17 +4,35 @@
 
 namespace {
     bool controlState = true;
+    bool isRed = false;
+    bool isBlue = false;
 }
 
 namespace scorer {
+    bool filtering = false;
     int _taskState = 0; // 0 = stop, 1 = intake, -1 = outtake
     double _taskDelay = 0;
     bool locked = false;
     bool isSwitchedState = false;
-
+    bool filter = true;
+    
+    char filterColor = 'b'; // 'r' = red, 'b' = blue, 'n' = none
     void runThread() {
         while (1) {
-            
+            if(!locked && canControl()){
+                //if(opticalSensor.isNearObject()){
+                    double h = opticalSensor.hue();
+                    isRed  = ((h >= 0 && h <= 20) || (h >= 340 && h <= 360));
+                    isBlue =  (h >= 155 && h <= 240);
+                    printf("h = %.2f\n", h);
+                    filtering = ((filterColor == 'r' && isRed) || (filterColor == 'b' && isBlue)) && filter;
+                    if(filtering) {
+                        intakeMotor2.spin(reverse, 8, volt);
+				        wait(250, msec);
+                    }
+                //}
+            }
+            wait(5, msec);
         }
     }
 
