@@ -1,5 +1,6 @@
 #include "Mechanics/scorer.h"
 #include "robot-config.h"
+#include "Mechanics/botPneumatics.h"
 #include "main.h"
 
 namespace {
@@ -22,12 +23,13 @@ namespace scorer {
             if(!locked && canControl()){
                 //if(opticalSensor.isNearObject()){
                     double h = opticalSensor.hue();
-                    isRed  = ((h >= 0 && h <= 20) || (h >= 340 && h <= 360));
-                    isBlue =  (h >= 155 && h <= 240);
+                    double h2 = opticalSensor.hue();
+                    isRed  = ((h >= 0 && h <= 20) || (h >= 340 && h <= 360) || (h2 >= 0 && h2 <= 20) || (h2 >= 340 && h2 <= 360));
+                    isBlue =  (h >= 155 && h <= 240) || (h2 >= 155 && h2 <= 240);
                     printf("h = %.2f\n", h);
                     filtering = ((filterColor == 'r' && isRed) || (filterColor == 'b' && isBlue)) && filter;
                     if(filtering) {
-                        if (botPneumatics::botArmPneumatics.value() == 0 ) {
+                        if (botArmPneumatics.value() == 0 ) {
                             botPneumatics::setState(1);
                             intakeMotor2.spin(reverse, 12, volt);
 				            wait(250, msec);

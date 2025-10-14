@@ -22,6 +22,7 @@ extern pneumatics botArmPneumatics;
 extern pneumatics trapDoorPneumatics;
 
 extern optical opticalSensor;
+//extern optical opticalSensor2;
 
 extern rotation LookRotation;
 extern rotation RightRotation;

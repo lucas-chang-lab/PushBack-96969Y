@@ -25,6 +25,7 @@ pneumatics botArmPneumatics(Brain.ThreeWirePort.A);
 pneumatics trapDoorPneumatics(Brain.ThreeWirePort.C);
 
 optical opticalSensor(PORT12);
+//optical opticalSensor2(PORT19);
 
 rotation LookRotation(PORT4);
 rotation RightRotation(PORT5);
