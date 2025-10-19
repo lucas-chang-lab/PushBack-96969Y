@@ -2,16 +2,29 @@
 #include "Mechanics/botPneumatics.h"
 #include "AutonUtilities/odometry.h"
 #include "Mechanics/trapDoorPneumatics.h"
+#include "Mechanics/scorer.h"
+#include "Mechanics/botDrive.h"
+
 #include "controls.h"
 
 namespace preauton {
     void runPreauton() {
-        //InertialSensor.calibrate();
+        InertialSensor.calibrate();
         botPneumatics::setState(1);
-        trapDoor::preauton();
-        controls::preauton();
         
+        controls::preauton();
+        controls::startThreads();
+
+        opticalSensor.setLight(ledState::on);
+        opticalSensor.setLightPower(30);
+        
+        botdrive::preauton(); 
+        
+        botPneumatics::preauton();
+        trapDoor::preauton();
     }
+
+
     void waitCalibrating() {
         while (InertialSensor.isCalibrating()) vex::this_thread::sleep_for(20);
         vex::this_thread::sleep_for(200);

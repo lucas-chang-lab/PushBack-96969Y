@@ -37,6 +37,6 @@ namespace botPneumatics {
 	}
 
 	void preauton() {
-		botArmPneumatics.set(0);
+		botArmPneumatics.set(1);
 	}
 }

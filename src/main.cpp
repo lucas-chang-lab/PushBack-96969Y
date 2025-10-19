@@ -60,13 +60,12 @@ void usercontrol() {
 
 int main() {
     pre_auton();
-    printf("ethiehti");
     Competition.autonomous(autonomous);
     Competition.drivercontrol(usercontrol);
     while(1) {
         //genutil::distanceTesting();
-        //odometry::startThreads();
-        //genutil::odometryTesting();
+        odometry::startThreads();
+        genutil::odometryTesting();
         wait(100, msec);
     }
 }

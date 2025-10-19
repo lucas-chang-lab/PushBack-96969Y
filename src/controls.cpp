@@ -55,12 +55,7 @@ namespace controls {
     }
 
     void preauton() {
-        opticalSensor.setLight(ledState::on);
-        opticalSensor.setLightPower(30);
-        botdrive::preauton(); 
-        controls::startThreads();
-        botPneumatics::preauton();
-        trapDoor::preauton();
+        
     }
 
 

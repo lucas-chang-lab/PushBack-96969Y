@@ -28,8 +28,8 @@ namespace autonFunctions {
         double rightRotationRadiusIn = halfRobotLengthIn - rotateCenterOffsetIn;
         double averageRotationRadiusIn = (leftRotationRadiusIn + rightRotationRadiusIn) / 2.0;
 
-        double leftVelocityFactor = -leftRotationRadiusIn / averageRotationRadiusIn;
-        double rightVelocityFactor = rightRotationRadiusIn / averageRotationRadiusIn;
+        double leftVelocityFactor = leftRotationRadiusIn / averageRotationRadiusIn;
+        double rightVelocityFactor = -rightRotationRadiusIn / averageRotationRadiusIn;
 
         LeftRightMotors.setStopping(brake);
         PIDControl rotateTargetAnglePid(1, 0.001, 0.4, errorRange);
@@ -50,7 +50,8 @@ namespace autonFunctions {
             double leftMotorVelocityPct = averageMotorVelocityPct * leftVelocityFactor;
             double rightMotorVelocityPct = averageMotorVelocityPct * rightVelocityFactor;
 
-            driveVoltage(genutil::pctToVolt(leftMotorVelocityPct), genutil::pctToVolt(rightMotorVelocityPct), 12);
+            // opposite direction
+            driveVoltage(-genutil::pctToVolt(leftMotorVelocityPct), -genutil::pctToVolt(rightMotorVelocityPct), 12);
             task::sleep(20);   
         }
         //printf("Ending \n");
@@ -68,7 +69,7 @@ namespace autonFunctions {
         //printf("Starting \n");
         while(!driveTargetDistancePid.isSettled() && timeout.value() < runTimeout) {
             double distanceError;
-            double traveledRev = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
+            double traveledRev = -(LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
             double currentTravelDistanceInches = traveledRev  *  driveWheelCircumIn; 
             distanceError = targetDistanceInches - currentTravelDistanceInches;
 
@@ -84,7 +85,7 @@ namespace autonFunctions {
             double rightVelocityPct = velocityPct;
             double leftVelocityPct = velocityPct;
 
-            driveVoltage(genutil::pctToVolt(leftVelocityPct), genutil::pctToVolt(rightVelocityPct), 10.0);
+            driveVoltage(-genutil::pctToVolt(leftVelocityPct), -genutil::pctToVolt(rightVelocityPct), 10.0);
             task::sleep(20);
         }
         //printf("Ending \n");
@@ -100,8 +101,8 @@ namespace autonFunctions {
         double rightRotationRadiusIn = halfRobotLengthIn - rotateCenterOffsetIn;
         double averageRotationRadiusIn = (leftRotationRadiusIn + rightRotationRadiusIn) / 2.0;
 
-        double leftVelocityFactor = -leftRotationRadiusIn / averageRotationRadiusIn;
-        double rightVelocityFactor = rightRotationRadiusIn / averageRotationRadiusIn;
+        double leftVelocityFactor = leftRotationRadiusIn / averageRotationRadiusIn;
+        double rightVelocityFactor = -rightRotationRadiusIn / averageRotationRadiusIn;
 
         PIDControl driveTargetDistancePid(4.3, 0, 46, errorRange);
         PIDControl rotateTargetAnglePid(1, 0.001, 0.4, defaultTurnAngleErrorRange);
@@ -110,7 +111,7 @@ namespace autonFunctions {
         printf("Starting \n");
         while((!driveTargetDistancePid.isSettled() || !rotateTargetAnglePid.isSettled()) && timeout.value() < runTimeout) {
             double distanceError;
-            double traveledRev = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
+            double traveledRev = -(LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
             double currentTravelDistanceInches = traveledRev  * driveWheelCircumIn; 
             distanceError = targetDistanceInches - currentTravelDistanceInches;
 
@@ -132,7 +133,7 @@ namespace autonFunctions {
             double leftMotorVelocityPct = velocityPct + rotationPct * leftVelocityFactor;
             double rightMotorVelocityPct = velocityPct + rotationPct * rightVelocityFactor;
 
-            driveVoltage(genutil::pctToVolt(leftMotorVelocityPct), genutil::pctToVolt(rightMotorVelocityPct), 10.0);
+            driveVoltage(-genutil::pctToVolt(leftMotorVelocityPct), -genutil::pctToVolt(rightMotorVelocityPct), 10.0);
             task::sleep(20);
         }
         printf("Ending \n");
@@ -143,7 +144,7 @@ namespace autonFunctions {
         LeftMotors.setPosition(0, rev);
         RightMotors.setPosition(0, rev);
 
-        PIDControl driveTargetDistancePid(4.3, 0, 46, errorRange);
+        PIDControl driveTargetDistancePid(12, 0.08, 0.3, errorRange);
         PIDControl faceTargetPid(0.8, 0, 0.2, 10.0);
         PIDControl rotateTargetAnglePid(1, 0.001, 0.4, defaultTurnAngleErrorRange);
         timer timeout;
@@ -158,22 +159,21 @@ namespace autonFunctions {
             double deltaY = targetY - currentY;
             double distanceError = sqrt(deltaX * deltaX + deltaY * deltaY);
 
-            double angleToTarget = atan2(deltaY, deltaX) * 180.0 / M_PI;
+            double angleToTarget = atan2(deltaX, deltaY) * 180.0 / M_PI; //here
             double angleError = angleToTarget - currentAngle;
             angleError = genutil::wrapAngle(angleError);
 
             double rotateError = targetAngle - currentAngle;
             rotateError = genutil::wrapAngle(rotateError);
 
-            //printf("Current X: %.2f tiles\n", currentX);
-            //printf("Current Y: %.2f tiles\n", currentY);
-            //printf("Current Angle: %.2f degrees\n", currentAngle);
-            //printf("Distance Error: %.2f tiles\n", distanceError);
-            //printf("Angle to Target: %.2f degrees\n", angleToTarget);
+    
+            printf("Distance Error: %.2f tiles\n", distanceError);
+            printf("Angle to Target: %.2f degrees\n", angleToTarget);
             //printf("Angle Error: %.2f degrees\n", angleError);
             //printf("Rotate Error: %.2f degrees\n", rotateError);
             //printf("Timeout: %.2f seconds\n", timeout.value());
-            //printf("driveTargetDistancePid Output: %.2f\n", driveTargetDistancePid.getOutput());
+            printf("driveTargetDistancePid Output: %.2f\n", driveTargetDistancePid.getOutput());
+            printf("faceTargetPid Output: %.2f\n", faceTargetPid.getOutput());
             //printf("rotateTargetAnglePid Output: %.2f\n", rotateTargetAnglePid.getOutput());
 
             driveTargetDistancePid.computeFromError(distanceError);
@@ -188,9 +188,9 @@ namespace autonFunctions {
                 rotationPct = fmin(maxPct, fmax(-maxPct, rotateTargetAnglePid.getOutput()));
             }
 
-            double leftMotorVelocityPct = velocityPct - rotationPct;
-            double rightMotorVelocityPct = velocityPct + rotationPct;   
-            driveVoltage(genutil::pctToVolt(leftMotorVelocityPct), genutil::pctToVolt(rightMotorVelocityPct), 10.0);
+            double leftMotorVelocityPct = velocityPct + rotationPct;
+            double rightMotorVelocityPct = velocityPct - rotationPct;   
+            driveVoltage(-genutil::pctToVolt(leftMotorVelocityPct), -genutil::pctToVolt(rightMotorVelocityPct), 12.0);
             task::sleep(20);
         }
         printf("Ending \n");

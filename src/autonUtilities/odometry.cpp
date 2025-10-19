@@ -61,7 +61,7 @@ namespace {
             double revToTilesRight = (1.0 / botinfo::trackingLookWheelSensorGearRatio) * botinfo::trackingLookWheelCircumIn / field::tileLengthIn;
             
             x += absoluteDeltaRight * revToTilesRight;
-            y += absoluteDeltaLook * revToTilesLook;
+            y += absoluteDeltaLook * revToTilesLook * -1.0;     // Invert Y axis
             angle = newAngle;
 
             oldLook = newLook;

@@ -40,19 +40,23 @@ namespace genutil {
     }
 
     void distanceTesting() {
-        double LeftStart = LeftMotors.position(rev);
-        double RightStart = RightMotors.position(rev);
+        double LeftMotorInit = LeftMotors.position(rev);
+        double RightMotorInit = RightMotors.position(rev);
+
+        double RightRotationStart = RightRotation.position(rev);
         while(1) {
-            double revs = (LeftMotors.position(rev) - LeftStart + RightMotors.position(rev) - RightStart) / 2.0;
-            printf("driveWheel: %.2f tiles\n", (revs / botinfo::driveWheelMotorGearRatio * botinfo::driveWheelCircumIn / field::tileLengthIn));
-            //printf("trackingWheel: %.2f tiles\n", (revs / botinfo::trackingLookWheelSensorGearRatio * botinfo::trackingLookWheelCircumIn / field::tileLengthIn));
+            double driveingWheelRevs = (LeftMotors.position(rev) - LeftMotorInit + RightMotors.position(rev) - RightMotorInit) / 2.0;
+            double trackingWheelRevs = RightRotation.position(rev) - RightRotationStart;
+            printf("driveWheel: %.2f tiles\n", (driveingWheelRevs / botinfo::driveWheelMotorGearRatio * botinfo::driveWheelCircumIn / field::tileLengthIn));
+            printf("trackingWheel: %.2f tiles\n", (trackingWheelRevs / botinfo::trackingLookWheelSensorGearRatio * botinfo::trackingLookWheelCircumIn / field::tileLengthIn));
+            wait(20, msec);
         }
     }
 
     void odometryTesting() {
         while(1) {
             printf("X: %.2f tiles, Y: %.2f tiles, Angle: %.2f degrees\n", odometry::getX(), odometry::getY(), odometry::getAngle());
-            vex::this_thread::sleep_for(100);
+            vex::this_thread::sleep_for(20);
         }
     }
 }
