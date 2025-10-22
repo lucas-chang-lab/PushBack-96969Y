@@ -3,7 +3,7 @@
 #include "Mechanics/frontIntake.h"
 #include "Mechanics/scorer.h"
 #include "Mechanics/botPneumatics.h"
-#include "Mechanics/trapDoorPneumatics.h"
+#include "Mechanics/matchLoader.h"
 #include "main.h"
 
 
@@ -49,7 +49,7 @@ namespace controls {
             
         });
         Controller1.ButtonDown.pressed([]() -> void {
-            trapDoor::switchState();
+            matchLoad::switchState();
         });
 
     }

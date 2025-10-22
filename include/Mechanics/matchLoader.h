@@ -1,6 +1,6 @@
 #pragma once
 
-namespace trapDoor {
+namespace matchLoad {
 	void setState(bool, double = 0);
 
 	void switchState();

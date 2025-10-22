@@ -1,14 +1,15 @@
-#include "Mechanics/trapDoorPneumatics.h"
+#include "Mechanics/matchLoader.h"
+#include "robot-config.h"
 #include "main.h"
 
-namespace trapDoor {
+namespace matchLoad {
 	int _taskState = 0; // 0 = closed, 1 = open
 	double _taskDelay = 0;
 	void setState(bool state, double delaySec) {
 		// Check for instant set
 		if (delaySec <= 1e-9) {
 			// Set state here
-			trapDoorPneumatics.set(state);
+			matchLoader.set(state);
 
 			return;
 		}
@@ -26,17 +27,17 @@ namespace trapDoor {
 			task::sleep(taskDelay * 1000);
 
 			// Set state here
-			trapDoorPneumatics.set(taskState);
+			matchLoader.set(taskState);
 
 			return 1;
 		});
 	}
 
 	void switchState() {
-		setState(!trapDoorPneumatics.value());
+		setState(!matchLoader.value());
 	}
 
 	void preauton() {
-		trapDoorPneumatics.set(1);
+		matchLoader.set(0);
 	}
 }

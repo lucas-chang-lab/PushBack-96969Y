@@ -6,6 +6,12 @@ PIDControl::PIDControl(double kP, double kI, double kD, double settleRange, doub
       currentError(2e17), previousError(2e17), cumulativeError(0), deltaError(0),
       settledFrames(0) {}
 
+void PIDControl::setGains(double kP, double kI, double kD) {
+    this->kP = kP;
+    this->kI = kI;
+    this->kD = kD;
+}
+
 void PIDControl::computeFromError(double error) {
     if (previousError > 1e17) {
         previousError = error;

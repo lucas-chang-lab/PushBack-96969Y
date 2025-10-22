@@ -1,7 +1,7 @@
 #include "Auton/preauton.h"
 #include "Mechanics/botPneumatics.h"
 #include "AutonUtilities/odometry.h"
-#include "Mechanics/trapDoorPneumatics.h"
+#include "Mechanics/matchLoader.h"
 #include "Mechanics/scorer.h"
 #include "Mechanics/botDrive.h"
 
@@ -21,7 +21,7 @@ namespace preauton {
         botdrive::preauton(); 
         
         botPneumatics::preauton();
-        trapDoor::preauton();
+        matchLoad::preauton();
     }
 
 

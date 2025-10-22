@@ -6,7 +6,10 @@
 #include "AutonUtilities/Pid.h"
 #include "Mechanics/frontIntake.h"
 #include "Mechanics/scorer.h"
+#include "Mechanics/botPneumatics.h"
+#include "Mechanics/matchLoader.h"
 #include "AutonUtilities/odometry.h"
+
 
 namespace {
     using namespace genutil;
@@ -32,7 +35,17 @@ namespace autonFunctions {
         double rightVelocityFactor = -rightRotationRadiusIn / averageRotationRadiusIn;
 
         LeftRightMotors.setStopping(brake);
-        PIDControl rotateTargetAnglePid(1, 0.001, 0.4, errorRange);
+        PIDControl rotateTargetAnglePid(0, 0, 0, errorRange);
+        
+        if (fabs(rotation - InertialSensor.rotation(degrees)) <= 60) {
+            rotateTargetAnglePid.setGains(0.58, 0.0004, 0.25);
+        } else if (fabs(rotation - InertialSensor.rotation(degrees)) <= 120) {
+            rotateTargetAnglePid.setGains(0.50, 0.0002, 0.60);
+        } else {
+            rotateTargetAnglePid.setGains(0.375, 0.0000, 1.00);
+        }
+
+
         timer timeout;
         timeout.reset();
         //printf("Starting \n");
@@ -63,7 +76,7 @@ namespace autonFunctions {
         LeftMotors.setPosition(0, rev);
         RightMotors.setPosition(0, rev);
 
-        PIDControl driveTargetDistancePid(4.3, 0, 46, errorRange);
+        PIDControl driveTargetDistancePid(7, 0, 50, errorRange); //8 0 46
         timer timeout;
         timeout.reset();
         //printf("Starting \n");
@@ -197,24 +210,30 @@ namespace autonFunctions {
         LeftRightMotors.stop(brakeType::brake);
     }
 
-    void intake3rdStage(int state, double delaySec) {
-        scorer::setState(-state, delaySec);
-        frontIntake::setState(-state, delaySec);
+    void intake3rdStage(double delaySec) {
+        scorer::setState(1, delaySec);
+        frontIntake::setState(1, delaySec);
+        botPneumatics::setState(1);
     }
 
-    void intake2ndStage(int state, double delaySec) {
-        scorer::setState(-state, delaySec);
-        frontIntake::setState(-state, delaySec);
+    void intake2ndStage(double delaySec) {
+        scorer::setState(1, delaySec);
+        frontIntake::setState(1, delaySec);
+        botPneumatics::setState(0);
     }
 
-    void intake1stStage(int state, double delaySec) {
-        scorer::setState(state, delaySec);
-        frontIntake::setState(state, delaySec);
+    void intake1stStage(double delaySec) {
+        scorer::setState(-1, delaySec);
+        frontIntake::setState(-1, delaySec);
     }
 
-    void intakeStore(int state, double delaySec) {
-        scorer::setState(state, delaySec);
-        frontIntake::setState(-state, delaySec);
+    void intakeStore(double delaySec) {
+        scorer::setState(0, delaySec);
+        frontIntake::setState(1, delaySec);
+    }
+
+    void setMatchLoader(int state, double delaySec) {
+        matchLoad::setState(state, delaySec);
     }
 }
 

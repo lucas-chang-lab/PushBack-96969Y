@@ -19,7 +19,7 @@ namespace {
     void DrivingSkill();
     void Test();
 
-    bool userRunningAutonomous = true;
+    bool userRunningAutonomous = false;
 }
 
 namespace auton {
@@ -100,48 +100,24 @@ namespace {
         preauton::waitCalibrating();
         odometry::setValues(2,0,0);
         setRotation(0);
-        goToPoseTiles(1, 1, 0, 90.0, 0.1, 3.0);
+        //driveDistanceTiles(2, 80.0, 0.1, 1.0);
+        setMatchLoader(1, 0);
+        setMatchLoader(0, 1.0);
     }
 
     void RedLeft() {
         preauton::waitCalibrating();
         odometry::setValues(0,0,0);
-        setRotation(-54.0);
-        driveDistanceTiles(-1.56, 90.0, 0.1, 0.9);
-        LeftRightMotors.stop(brake);
-        turnToAngle(-2, 0, 2.0, 0.9);
-        LeftRightMotors.stop(brake);
-        driveDistanceTiles(-0.45, 90.0, 0.1, 0.8);
-        LeftRightMotors.stop(brake);
-        intake3rdStage(1, 0);
-        wait(1.5, sec);
-        driveDistanceTiles(0.8, 90.0, 0.1, 0.8);
-        LeftRightMotors.stop(brake);
-        turnToAngle(46, 0, 2.0, 1);
-        LeftRightMotors.stop(brake);
-        driveDistanceTiles(-1.4, 90.0, 0.1, 0.9);
-        LeftRightMotors.stop(brake);
-        intake2ndStage(1, 0);
-        wait(0.2, sec);
-        driveDistanceTiles(-0.9, 90.0, 0.1, 0.8);
-        LeftRightMotors.stop(brake);
-        intake2ndStage(1, 0);
-        wait(2, sec);
+        
     }
 
     void BlueRight() {
-        preauton::waitCalibrating();
-        odometry::setValues(0,0,0);
-        intake2ndStage(1, 0);
-        wait(2, sec);
-        intake3rdStage(1, 0);
-        wait(2, sec);
+
     }
 
     void BlueLeft() {
         preauton::waitCalibrating();
         odometry::setValues(0,0,0);
-        intakeStore(1, 0);
         wait(5, sec);
     }
 
