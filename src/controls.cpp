@@ -30,8 +30,7 @@ namespace controls {
             scorer::filter = !scorer::filter;
         });
         Controller1.ButtonY.pressed([]() -> void {
-            // scorer::locked = false;
-            // scorer::isSwitchedState = !scorer::isSwitchedState;
+            matchLoad::switchState();
         });
         Controller1.ButtonA.pressed([]() -> void {
             scorer::locked = false;
@@ -48,10 +47,11 @@ namespace controls {
 
         });
         Controller1.ButtonUp.pressed([]() -> void {
-            doublePark::switchState();
+            
         });
         Controller1.ButtonDown.pressed([]() -> void {
-            matchLoad::switchState();
+            
+            doublePark::switchState();
         });
 
     }
