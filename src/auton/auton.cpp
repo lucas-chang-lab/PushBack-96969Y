@@ -98,6 +98,12 @@ namespace auton {
 namespace {
     void RedRight() {
         preauton::waitCalibrating();
+        odometry::setValues(0,0,0);
+    }
+
+    void RedLeft() {
+        
+        preauton::waitCalibrating();
         odometry::setValues(2,0,-7);
         setRotation(-7);
         intakeStore(1, 0.1);
@@ -116,12 +122,6 @@ namespace {
         driveDistanceTiles(-2.0, 50.0, 0.1, 0.8);
         intake3rdStage(1, 0);
         wait(1, sec);
-    }
-
-    void RedLeft() {
-        preauton::waitCalibrating();
-        odometry::setValues(0,0,0);
-        
     }
 
     void BlueRight() {
