@@ -4,6 +4,7 @@
 #include "Mechanics/matchLoader.h"
 #include "Mechanics/scorer.h"
 #include "Mechanics/botDrive.h"
+#include "robot-config.h"
 
 #include "controls.h"
 
@@ -11,11 +12,13 @@ namespace preauton {
     void runPreauton() {
         InertialSensor.calibrate();
         botPneumatics::setState(1);
+
+        odometry::startThreads();
         
         controls::preauton();
         controls::startThreads();
 
-        opticalSensor.setLight(ledState::on);
+        opticalSensor.setLight(ledState::on); 
         opticalSensor.setLightPower(30);
         
         botdrive::preauton(); 

@@ -98,11 +98,24 @@ namespace auton {
 namespace {
     void RedRight() {
         preauton::waitCalibrating();
-        odometry::setValues(2,0,0);
-        setRotation(0);
-        //driveDistanceTiles(2, 80.0, 0.1, 1.0);
-        setMatchLoader(1, 0);
-        setMatchLoader(0, 1.0);
+        odometry::setValues(2,0,-7);
+        setRotation(-7);
+        intakeStore(1, 0.1);
+        driveDistanceTiles(1.4, 50.0, 0.1, 0.8);
+        wait(1.5, sec);
+        turnToAngle(-140, 0, 1.0, 0.8);
+        intake2ndStage(1, 1.2);
+        driveDistanceTiles(-0.8, 50.0, 0.1, 0.8);
+        wait(1, sec);
+        //setMatchLoader(1, 0.4);
+        goToPointTiles(0.7, 0.6, 50.0, 0.1, 2.0, true);
+        turnToAngle(-180, 0, 1.0, 0.8);
+        intakeStore(1, 0);
+        wait(1, sec);
+        //setMatchLoader(0, 0.2);
+        driveDistanceTiles(-2.0, 50.0, 0.1, 0.8);
+        intake3rdStage(1, 0);
+        wait(1, sec);
     }
 
     void RedLeft() {
@@ -131,10 +144,8 @@ namespace {
 
     void Test() {
         preauton::waitCalibrating();
-        odometry::startThreads();
-        odometry::setValues(0,0,0);
+        odometry::setValues(2,0,0);
         setRotation(0);
-        driveDistanceTiles(1.0, 50.0, 0.1, 3.0);
-        turnToAngle(90.0, 0, 2.0, 3.0);
+        goToPointTiles(2, 2, 50.0, 0.1, 5.0, false);
     }
 }

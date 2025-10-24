@@ -4,6 +4,7 @@
 #include "Mechanics/scorer.h"
 #include "Mechanics/botPneumatics.h"
 #include "Mechanics/matchLoader.h"
+#include "Mechanics/doublePark.h"
 #include "main.h"
 
 
@@ -38,6 +39,7 @@ namespace controls {
         });
         Controller1.ButtonB.pressed([]() -> void {
             scorer::locked = !scorer::locked;
+            botPneumatics::setState(1);
         });
         Controller1.ButtonL2.pressed([]() -> void {
 
@@ -46,7 +48,7 @@ namespace controls {
 
         });
         Controller1.ButtonUp.pressed([]() -> void {
-            
+            doublePark::switchState();
         });
         Controller1.ButtonDown.pressed([]() -> void {
             matchLoad::switchState();

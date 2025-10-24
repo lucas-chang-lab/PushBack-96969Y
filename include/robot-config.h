@@ -20,6 +20,7 @@ extern motor intakeMotor;
 extern motor intakeMotor2;
 extern pneumatics botArmPneumatics;
 extern pneumatics matchLoader;
+extern pneumatics doubleParkPneumatic;
 
 extern optical opticalSensor;
 //extern optical opticalSensor2;

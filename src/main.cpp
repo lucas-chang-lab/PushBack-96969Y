@@ -64,7 +64,6 @@ int main() {
     Competition.drivercontrol(usercontrol);
     while(1) {
         //genutil::distanceTesting();
-        odometry::startThreads();
         genutil::odometryTesting();
         wait(100, msec);
     }

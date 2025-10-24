@@ -1,6 +1,7 @@
 #include "AutonUtilities/odometry.h"
 #include "Utilities/robotInfo.h"
 #include "Utilities/fieldInfo.h"
+#include "Utilities/generalUtilities.h"
 #include "main.h"
 
 namespace {
@@ -41,7 +42,7 @@ namespace {
     void odometryThread() {
         double oldLook = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
         double oldRight = RightRotation.position(rev);
-        double oldAngle = InertialSensor.rotation(degrees);
+        double oldAngle = genutil::wrapAngle(InertialSensor.rotation(degrees));
         
         while(true) {
             double newLook = (LeftMotors.position(rev) + RightMotors.position(rev)) / 2.0;
@@ -50,7 +51,7 @@ namespace {
 
             double localDeltaLook = newLook - oldLook;
             double localDeltaRight = newRight - oldRight;
-            double deltaAngle = newAngle - oldAngle;
+            double deltaAngle = genutil::wrapAngle(newAngle - oldAngle);
 
             double averageAngle = oldAngle + deltaAngle / 2.0;
             double rotateAngle = averageAngle * M_PI / 180.0;
@@ -62,7 +63,7 @@ namespace {
             
             x += absoluteDeltaRight * revToTilesRight;
             y += absoluteDeltaLook * revToTilesLook * -1.0;     // Invert Y axis
-            angle = newAngle;
+            angle = genutil::wrapAngle(newAngle);
 
             oldLook = newLook;
             oldRight = newRight;

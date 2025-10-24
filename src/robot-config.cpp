@@ -23,6 +23,7 @@ motor intakeMotor2(PORT18, ratio18_1, false);
 
 pneumatics botArmPneumatics(Brain.ThreeWirePort.A);
 pneumatics matchLoader(Brain.ThreeWirePort.C);
+pneumatics doubleParkPneumatic(Brain.ThreeWirePort.B);
 
 optical opticalSensor(PORT13);
 //optical opticalSensor2(PORT19);
