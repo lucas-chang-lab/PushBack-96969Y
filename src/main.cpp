@@ -32,11 +32,8 @@ void pre_auton() {
 }
 
 void autonomous() {
-    timer benchmarkTimer;
-    benchmarkTimer.reset();
-    odometry::startThreads();
+    //odometry::startThreads();
     auton::runAutonomous();
-    printf("Auton Time: %.2f seconds \n", benchmarkTimer.value());
 }
 
 void usercontrol() {
@@ -64,7 +61,7 @@ int main() {
     Competition.drivercontrol(usercontrol);
     while(1) {
         //genutil::distanceTesting();
-        genutil::odometryTesting();
+        //genutil::odometryTesting();
         wait(100, msec);
     }
 }

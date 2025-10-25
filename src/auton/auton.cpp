@@ -3,12 +3,14 @@
 #include "Auton/preauton.h"
 #include "AutonUtilities/odometry.h"
 #include "Mechanics/scorer.h"
+#include "Graphic/autonSelector.h"
 #include "main.h"
+#include "Mechanics/scorer.h"
 
 namespace {
     using namespace auton;
     using namespace autonFunctions;
-    autonomousType currentAutonType = autonomousType::redRight;
+    autonomousType currentAutonType = autonomousType::redLeft;
     int auton_allianceId;
     
     void RedRight();
@@ -68,23 +70,36 @@ namespace auton {
     }
 
     void runAutonomous() {
+        if (autonSelector::isAutonSelected()) {
+            currentAutonType = autonSelector::getSelectedAuton();   // Override with selected auton
+        }
+        printf("Running Auton Type: %d\n", currentAutonType);
+        preauton::waitCalibrating();    // Ensure sensors are calibrated before starting auton
+        timer benchmarkTimer;
+        benchmarkTimer.reset();
         switch (currentAutonType) {
             case redLeft:
+                scorer::filterColor = 'b';
                 RedLeft();
                 break;
             case redRight:
+                scorer::filterColor = 'b';
                 RedRight();
                 break;
             case blueLeft:
+                scorer::filterColor = 'r';
                 BlueLeft();
                 break;
             case blueRight:
+                scorer::filterColor = 'r';
                 BlueRight();
                 break;
             case autonSkill:
+                scorer::filterColor = 'b';
                 AutonSkill();
                 break;
             case drivingSkill:
+                scorer::filterColor = 'b';
                 DrivingSkill();
                 break;
             case test:
@@ -92,46 +107,127 @@ namespace auton {
                 Brain.Screen.printAt(10, 60, "Running Test Auton");
                 break;
         }
+        printf("Auton Time: %.2f seconds \n", benchmarkTimer.value());
     }
 }
 
 namespace {
     void RedRight() {
         preauton::waitCalibrating();
-        odometry::setValues(0,0,0);
+        //odometry::setValues(2,0,-7);
+        setRotation(14.5);
+        intakeStore(1, 0.1);
+        setMatchLoader(1, 0.8);
+        driveDistanceTiles(1.24, 36.0, 0.1, 1.5);
+        setMatchLoader(0, 0.2);
+        turnToAngle(-56.5, 0, 1.0, 0.8);
+        intake1stStage(1, 1);
+        driveDistanceTiles(0.65, 50.0, 0.1, 1.2);
+        wait(0.7, sec);
+        intake1stStage(0, 0);
+        driveDistanceTiles(-1.99, 50.0, 0.1, 1.6);
+        turnToAngle(-188, 0, 1.0, 0.8);
+        //driveDistanceTiles(0.52, 90.0, 0.1, 1.0);
+        //LeftRightMotors.spin(reverse, 12, volt);
+        //wait(0.7, sec);
+        setMatchLoader(1, 0.0);
+        wait(100, msec);
+        intakeStore(1, 0);
+        driveDistanceTiles(0.71, 60.0, 0.1, 1.0);
+        wait(1.5, sec);
+        setMatchLoader(0, 0.2);
+        intakeStore(0, 0);
+        intake3rdStage(1, 1.4);
+        driveDistanceTiles(-1.22, 50.0, 0.1, 2.0);
+        wait(1.5, sec);
     }
 
     void RedLeft() {
-        
         preauton::waitCalibrating();
-        odometry::setValues(2,0,-7);
-        setRotation(-7);
+        //odometry::setValues(2,0,-7);
+        setRotation(-14.5);
         intakeStore(1, 0.1);
-        driveDistanceTiles(1.4, 50.0, 0.1, 0.8);
-        wait(1.5, sec);
-        turnToAngle(-140, 0, 1.0, 0.8);
-        intake2ndStage(1, 1.2);
-        driveDistanceTiles(-0.8, 50.0, 0.1, 0.8);
-        wait(1, sec);
-        //setMatchLoader(1, 0.4);
-        goToPointTiles(0.7, 0.6, 50.0, 0.1, 2.0, true);
-        turnToAngle(-180, 0, 1.0, 0.8);
+        setMatchLoader(1, 0.8);
+        driveDistanceTiles(1.24, 36.0, 0.1, 1.5);
+        setMatchLoader(0, 0.2);
+        turnToAngle(-141, 0, 1.0, 0.8);
+        intake2ndStage(1, 1);
+        driveDistanceTiles(-0.65, 50.0, 0.1, 1.2);
+        wait(0.3, sec);
+        intake2ndStage(0, 0);
+        driveDistanceTiles(1.98, 50.0, 0.1, 1.6);
+        turnToAngle(-175, 0, 1.0, 0.8);
+        //driveDistanceTiles(0.52, 90.0, 0.1, 1.0);
+        //LeftRightMotors.spin(reverse, 12, volt);
+        //wait(0.7, sec);
+        setMatchLoader(1, 0.0);
+        wait(100, msec);
         intakeStore(1, 0);
-        wait(1, sec);
-        //setMatchLoader(0, 0.2);
-        driveDistanceTiles(-2.0, 50.0, 0.1, 0.8);
-        intake3rdStage(1, 0);
-        wait(1, sec);
+        driveDistanceTiles(0.9, 60.0, 0.1, 1.4);
+        wait(1.5, sec);
+        setMatchLoader(0, 0.2);
+        intakeStore(0, 0);
+        intake3rdStage(1, 1.4);
+        driveDistanceTiles(-1.22, 50.0, 0.1, 2.0);
+        wait(1.5, sec);
     }
 
     void BlueRight() {
-
+         setRotation(14.5);
+        intakeStore(1, 0.1);
+        setMatchLoader(1, 0.8);
+        driveDistanceTiles(1.24, 36.0, 0.1, 1.5);
+        setMatchLoader(0, 0.2);
+        turnToAngle(-56.5, 0, 1.0, 0.8);
+        intake1stStage(1, 1);
+        driveDistanceTiles(0.65, 50.0, 0.1, 1.2);
+        wait(0.7, sec);
+        intake1stStage(0, 0);
+        driveDistanceTiles(-1.99, 50.0, 0.1, 1.6);
+        turnToAngle(-188, 0, 1.0, 0.8);
+        //driveDistanceTiles(0.52, 90.0, 0.1, 1.0);
+        //LeftRightMotors.spin(reverse, 12, volt);
+        //wait(0.7, sec);
+        setMatchLoader(1, 0.0);
+        wait(100, msec);
+        intakeStore(1, 0);
+        driveDistanceTiles(0.71, 60.0, 0.1, 1.0);
+        wait(1.5, sec);
+        setMatchLoader(0, 0.2);
+        intakeStore(0, 0);
+        intake3rdStage(1, 1.4);
+        driveDistanceTiles(-1.22, 50.0, 0.1, 2.0);
+        wait(1.5, sec);
     }
 
     void BlueLeft() {
         preauton::waitCalibrating();
-        odometry::setValues(0,0,0);
-        wait(5, sec);
+        //odometry::setValues(2,0,-7);
+        setRotation(-14.5);
+        intakeStore(1, 0.1);
+        setMatchLoader(1, 0.8);
+        driveDistanceTiles(1.24, 36.0, 0.1, 1.5);
+        setMatchLoader(0, 0.2);
+        turnToAngle(-141, 0, 1.0, 0.8);
+        intake2ndStage(1, 1);
+        driveDistanceTiles(-0.65, 50.0, 0.1, 1.2);
+        wait(0.3, sec);
+        intake2ndStage(0, 0);
+        driveDistanceTiles(1.98, 50.0, 0.1, 1.6);
+        turnToAngle(-175, 0, 1.0, 0.8);
+        //driveDistanceTiles(0.52, 90.0, 0.1, 1.0);
+        //LeftRightMotors.spin(reverse, 12, volt);
+        //wait(0.7, sec);
+        setMatchLoader(1, 0.0);
+        wait(100, msec);
+        intakeStore(1, 0);
+        driveDistanceTiles(0.9, 60.0, 0.1, 1.4);
+        wait(1.5, sec);
+        setMatchLoader(0, 0.2);
+        intakeStore(0, 0);
+        intake3rdStage(1, 1.4);
+        driveDistanceTiles(-1.22, 50.0, 0.1, 2.0);
+        wait(1.5, sec);
     }
 
     void AutonSkill() {
@@ -143,9 +239,5 @@ namespace {
     }
 
     void Test() {
-        preauton::waitCalibrating();
-        odometry::setValues(2,0,0);
-        setRotation(0);
-        goToPointTiles(2, 2, 50.0, 0.1, 5.0, false);
     }
 }

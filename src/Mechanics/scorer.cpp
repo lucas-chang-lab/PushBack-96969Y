@@ -32,11 +32,11 @@ namespace scorer {
                         if (botArmPneumatics.value() == 0 ) {
                             botPneumatics::setState(1);
                             intakeMotor2.spin(reverse, 12, volt);
-				            wait(500, msec);
+				            wait(300, msec);
                             botPneumatics::setState(0);
                         } else {
                             intakeMotor2.spin(reverse, 12, volt);
-				            wait(500, msec);
+				            wait(300, msec);
                         }
                     }
                 //}
@@ -88,10 +88,18 @@ namespace scorer {
             }
             switch (state) {
             case 1:
-                intakeMotor2.spin(fwd, 12, volt);
+                if (botArmPneumatics.value() == 0 ) {
+                    intakeMotor2.spin(fwd, 5, volt);
+                } else {
+                    intakeMotor2.spin(fwd, 12, volt);
+                }
                 break;
             case -1:
-                intakeMotor2.spin(reverse, 12, volt);
+                if (botArmPneumatics.value() == 0 ) {
+                    intakeMotor2.spin(reverse, 4, volt);
+                } else {
+                    intakeMotor2.spin(reverse, 12, volt);
+                }
                 break;
             default:
                 intakeMotor2.stop(brake);

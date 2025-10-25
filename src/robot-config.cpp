@@ -25,11 +25,11 @@ pneumatics botArmPneumatics(Brain.ThreeWirePort.A);
 pneumatics matchLoader(Brain.ThreeWirePort.C);
 pneumatics doubleParkPneumatic(Brain.ThreeWirePort.B);
 
-optical opticalSensor(PORT13);
+optical opticalSensor(PORT16);
 //optical opticalSensor2(PORT19);
 
 rotation LookRotation(PORT4);
-rotation RightRotation(PORT16);
+rotation RightRotation(PORT13);
 
 triport Expander1(PORT6);
 

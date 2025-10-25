@@ -1,9 +1,10 @@
 #include "Auton/preauton.h"
-#include "Mechanics/botPneumatics.h"
 #include "AutonUtilities/odometry.h"
+#include "Mechanics/botPneumatics.h"
 #include "Mechanics/matchLoader.h"
 #include "Mechanics/scorer.h"
 #include "Mechanics/botDrive.h"
+#include "Graphic/autonSelector.h"
 #include "robot-config.h"
 
 #include "controls.h"
@@ -13,7 +14,7 @@ namespace preauton {
         InertialSensor.calibrate();
         botPneumatics::setState(1);
 
-        odometry::startThreads();
+        //odometry::startThreads();
         
         controls::preauton();
         controls::startThreads();
@@ -25,6 +26,8 @@ namespace preauton {
         
         botPneumatics::preauton();
         matchLoad::preauton();
+
+        autonSelector::pre_auton();
     }
 
 

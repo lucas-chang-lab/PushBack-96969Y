@@ -228,14 +228,14 @@ namespace autonFunctions {
         double angleToTarget = atan2(deltaX, deltaY) * 180.0 / M_PI;
 
         if (approachFront) {
-            turnToAngleVelocity(angleToTarget, maxPct, 0.0, errorRange, 1.0);
+            turnToAngleVelocity(angleToTarget, maxPct, 0.0, errorRange, 1.5);
             double distanceTiles = sqrt(deltaX * deltaX + deltaY * deltaY);
-            driveDistanceTiles(distanceTiles, maxPct, errorRange, 1.0);
+            driveDistanceTiles(distanceTiles, maxPct, errorRange, 1.5);
         } else {
             double backAngle = genutil::wrapAngle(angleToTarget + 180.0);
-            turnToAngleVelocity(backAngle, maxPct, 0.0, errorRange, 1.0);
+            turnToAngleVelocity(backAngle, maxPct, 0.0, errorRange, 1.5);
             double distanceTiles = sqrt(deltaX * deltaX + deltaY * deltaY);
-            driveDistanceTiles(-distanceTiles, maxPct, errorRange, 1.0);
+            driveDistanceTiles(-distanceTiles, maxPct, errorRange, 1.5);
         }
         LeftRightMotors.stop(brakeType::brake);
     }
