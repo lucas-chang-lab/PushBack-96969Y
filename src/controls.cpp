@@ -5,6 +5,7 @@
 #include "Mechanics/botPneumatics.h"
 #include "Mechanics/matchLoader.h"
 #include "Mechanics/doublePark.h"
+#include "Mechanics/descore.h"
 #include "main.h"
 
 
@@ -23,9 +24,6 @@ namespace controls {
     }
 
     void setUpKeybinds() {
-        Controller2.ButtonX.pressed([]() -> void {
-            
-        });
         Controller1.ButtonX.pressed([]() -> void {
             scorer::filter = !scorer::filter;
         });
@@ -47,7 +45,7 @@ namespace controls {
 
         });
         Controller1.ButtonUp.pressed([]() -> void {
-            
+            descore::switchState();
         });
         Controller1.ButtonDown.pressed([]() -> void {
             

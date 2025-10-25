@@ -4,6 +4,7 @@
 #include "Mechanics/matchLoader.h"
 #include "Mechanics/scorer.h"
 #include "Mechanics/botDrive.h"
+#include "Mechanics/descore.h"
 #include "Graphic/autonSelector.h"
 #include "robot-config.h"
 
@@ -26,6 +27,7 @@ namespace preauton {
         
         botPneumatics::preauton();
         matchLoad::preauton();
+        descore::preauton();
 
         autonSelector::pre_auton();
     }
