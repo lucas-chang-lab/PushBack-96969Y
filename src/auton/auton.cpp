@@ -140,6 +140,8 @@ namespace {
         intake3rdStage(1, 1.4);
         driveDistanceTiles(-1.22, 50.0, 0.1, 2.0);
         wait(1.5, sec);
+        driveDistanceTiles(0.3, 50.0, 0.1, 1.0);
+        LeftRightMotors.spin(forward, 12, volt);
     }
 
     void RedLeft() {
@@ -170,6 +172,8 @@ namespace {
         intake3rdStage(1, 1.4);
         driveDistanceTiles(-1.22, 50.0, 0.1, 2.0);
         wait(1.5, sec);
+        driveDistanceTiles(0.3, 50.0, 0.1, 1.0);
+        LeftRightMotors.spin(forward, 12, volt);
     }
 
     void BlueRight() {
@@ -198,6 +202,8 @@ namespace {
         intake3rdStage(1, 1.4);
         driveDistanceTiles(-1.22, 50.0, 0.1, 2.0);
         wait(1.5, sec);
+        driveDistanceTiles(0.3, 50.0, 0.1, 1.0);
+        LeftRightMotors.spin(forward, 12, volt);
     }
 
     void BlueLeft() {
@@ -228,6 +234,8 @@ namespace {
         intake3rdStage(1, 1.4);
         driveDistanceTiles(-1.22, 50.0, 0.1, 2.0);
         wait(1.5, sec);
+        driveDistanceTiles(0.3, 50.0, 0.1, 1.0);
+        LeftRightMotors.spin(forward, 12, volt);
     }
 
     void AutonSkill() {
