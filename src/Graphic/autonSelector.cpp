@@ -1,5 +1,6 @@
 #include "Auton/auton.h"
 #include "Graphic/autonSelector.h"
+#include "Mechanics/scorer.h"
 
 namespace {
     auton::autonomousType selectedAuton = auton::autonomousType::test;
@@ -40,12 +41,16 @@ namespace autonSelector {
         autonSelected = true;
         if (y < 120 && x < 240) {
             selectedAuton = autonomousType::blueLeft;
+            scorer::filterColor = 'r';
         } else if (y < 120 && x >= 240) {
             selectedAuton = autonomousType::blueRight;
+            scorer::filterColor = 'r';
         } else if (y >= 120 && x < 240) {
             selectedAuton = autonomousType::redLeft;
+            scorer::filterColor = 'b';
         } else if (y >= 120 && x >= 240) {
             selectedAuton = autonomousType::redRight;
+            scorer::filterColor = 'b';
         }
 
         drawAutonSelector();

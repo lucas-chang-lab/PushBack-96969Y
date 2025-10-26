@@ -16,12 +16,11 @@ namespace scorer {
     bool locked = false;
     bool isSwitchedState = false;
     bool filter = true;
-    
     char filterColor = 'b'; // 'r' = red, 'b' = blue, 'n' = none
     void runThread() {
         while (1) {
-            if(!locked && canControl()){
-                //if(opticalSensor.isNearObject()){
+            if(!locked && canControl() && (Competition.isAutonomous() || (int)(Controller1.ButtonR2.pressing()))) {
+                if(opticalSensor.isNearObject()) {
                     double h = opticalSensor.hue();
                     isRed  = (h >= 0 && h <= 20) || (h >= 340 && h <= 360);
                     isBlue =  (h >= 155 && h <= 240);
@@ -32,13 +31,15 @@ namespace scorer {
                             botPneumatics::setState(1);
                             intakeMotor2.spin(reverse, 12, volt);
 				            wait(300, msec);
+                            intakeMotor2.stop(brake);
                             botPneumatics::setState(0);
                         } else {
                             intakeMotor2.spin(reverse, 12, volt);
 				            wait(300, msec);
+                            intakeMotor2.stop(brake);
                         }
                     }
-                //}
+                }
             }
             wait(5, msec);
         }

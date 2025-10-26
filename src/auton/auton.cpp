@@ -31,19 +31,15 @@ namespace auton {
         switch (currentAutonType) {
             case redRight:
                 Brain.Screen.print("Auton Type: RedRight");
-                scorer::filterColor = 'b';
                 break;
             case redLeft:
                 Brain.Screen.print("Auton Type: RedLeft");
-                scorer::filterColor = 'b';
                 break;
             case blueRight:
                 Brain.Screen.print("Auton Type: BlueRight");
-                scorer::filterColor = 'r';
                 break;
             case blueLeft:
                 Brain.Screen.print("Auton Type: BlueLeft");
-                scorer::filterColor = 'r';
                 break;
             case autonSkill:
                 Brain.Screen.print("Auton Type: Auton Skill");
@@ -79,27 +75,21 @@ namespace auton {
         benchmarkTimer.reset();
         switch (currentAutonType) {
             case redLeft:
-                scorer::filterColor = 'b';
                 RedLeft();
                 break;
             case redRight:
-                scorer::filterColor = 'b';
                 RedRight();
                 break;
             case blueLeft:
-                scorer::filterColor = 'r';
                 BlueLeft();
                 break;
             case blueRight:
-                scorer::filterColor = 'r';
                 BlueRight();
                 break;
             case autonSkill:
-                scorer::filterColor = 'b';
                 AutonSkill();
                 break;
             case drivingSkill:
-                scorer::filterColor = 'b';
                 DrivingSkill();
                 break;
             case test:
