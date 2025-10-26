@@ -23,9 +23,8 @@ namespace scorer {
             if(!locked && canControl()){
                 //if(opticalSensor.isNearObject()){
                     double h = opticalSensor.hue();
-                    double h2 = opticalSensor.hue();
-                    isRed  = ((h >= 0 && h <= 20) || (h >= 340 && h <= 360) || (h2 >= 0 && h2 <= 20) || (h2 >= 340 && h2 <= 360));
-                    isBlue =  (h >= 155 && h <= 240) || (h2 >= 155 && h2 <= 240);
+                    isRed  = (h >= 0 && h <= 20) || (h >= 340 && h <= 360);
+                    isBlue =  (h >= 155 && h <= 240);
                     //printf("h = %.2f\n", h);
                     filtering = ((filterColor == 'r' && isRed) || (filterColor == 'b' && isBlue)) && filter;
                     if(filtering) {
