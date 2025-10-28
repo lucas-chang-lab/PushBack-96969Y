@@ -103,7 +103,6 @@ namespace auton {
 
 namespace {
     void RedRight() {
-        preauton::waitCalibrating();
         //odometry::setValues(2,0,-7);
         setRotation(14.5);
         intakeStore(1, 0.1);
@@ -135,7 +134,6 @@ namespace {
     }
 
     void RedLeft() {
-        preauton::waitCalibrating();
         //odometry::setValues(2,0,-7);
         setRotation(-14.5);
         intakeStore(1, 0.1);

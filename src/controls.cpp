@@ -7,15 +7,12 @@
 #include "Mechanics/doublePark.h"
 #include "Mechanics/descore.h"
 #include "main.h"
+#include "Graphic/img.h"
 
 
 namespace controls {
+    int show = 0;
     void startThreads() {
-        /*task intakeThread([]() -> int {
-            frontIntake::runThread();
-            return 1;
-        });*/
-        
         task scorerThread([]() -> int {
             
             scorer::runThread();
@@ -51,7 +48,21 @@ namespace controls {
             
             doublePark::switchState();
         });
-
+        Controller1.ButtonLeft.pressed([]() -> void { 
+            show++;
+            switch(show){
+            case 1:
+                img::drawLogo();
+                break;
+            case 2:
+                img::drawLogo2();
+                break;
+            default:
+                show = 0;
+                Brain.Screen.clearScreen();
+                break;
+            }
+        });
     }
 
     void preauton() {

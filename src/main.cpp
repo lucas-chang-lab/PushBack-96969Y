@@ -13,7 +13,7 @@
 #include "Auton/preauton.h"
 #include "AutonUtilities/odometry.h"
 #include "Utilities/generalUtilities.h"
-
+#include "Graphic/img.h"
 
 using namespace vex;
 
@@ -45,9 +45,11 @@ void usercontrol() {
 
     controls::setUpKeybinds();
     controls::resetStates();
-
+    
     while(1) {
+        
         controls::doControls();
+        
 
         //printf("Heading: %.2f \n", InertialSensor.heading());
         //printf("Rotation: %.2f \n", InertialSensor.rotation());
@@ -56,8 +58,8 @@ void usercontrol() {
 }
 
 int main() {
-    pre_auton();
-    Competition.autonomous(autonomous);
+    // pre_auton();
+    // Competition.autonomous(autonomous);
     Competition.drivercontrol(usercontrol);
     while(1) {
         //genutil::distanceTesting();

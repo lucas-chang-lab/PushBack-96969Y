@@ -27,7 +27,7 @@ pneumatics doubleParkPneumatic(Brain.ThreeWirePort.B);
 pneumatics descorePneumatic(Brain.ThreeWirePort.F);
 
 optical opticalSensor(PORT16);
-//optical opticalSensor2(PORT19);
+distance distanceSensor(PORT19);
 
 rotation LookRotation(PORT4);
 rotation RightRotation(PORT13);
