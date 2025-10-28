@@ -25,7 +25,7 @@ namespace controls {
             scorer::filter = !scorer::filter;
         });
         Controller1.ButtonY.pressed([]() -> void {
-            matchLoad::switchState();
+            
         });
         Controller1.ButtonA.pressed([]() -> void {
             scorer::locked = false;
@@ -35,8 +35,8 @@ namespace controls {
             scorer::locked = !scorer::locked;
             botPneumatics::setState(1);
         });
-        Controller1.ButtonL2.pressed([]() -> void {
-
+        Controller1.ButtonL2.pressed([]() -> void{
+             matchLoad::switchState(); 
         });
         Controller1.ButtonL1.pressed([]() -> void {
 
