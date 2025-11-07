@@ -15,7 +15,7 @@ namespace controls {
     void startThreads() {
         task scorerThread([]() -> int {
             
-            scorer::runThread();
+            //scorer::runThread();
             return 1;
         });
     }
