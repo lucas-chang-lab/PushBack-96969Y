@@ -41,15 +41,19 @@ namespace autonSelector {
         autonSelected = true;
         if (y < 120 && x < 240) {
             selectedAuton = autonomousType::blueLeft;
+            Controller1.Screen.print("Blue Left Selected");
             scorer::filterColor = 'r';
         } else if (y < 120 && x >= 240) {
             selectedAuton = autonomousType::blueRight;
+            Controller1.Screen.print("Blue Right Selected");
             scorer::filterColor = 'r';
         } else if (y >= 120 && x < 240) {
             selectedAuton = autonomousType::redLeft;
+            Controller1.Screen.print("Red Left Selected");
             scorer::filterColor = 'b';
         } else if (y >= 120 && x >= 240) {
             selectedAuton = autonomousType::redRight;
+            Controller1.Screen.print("Red Right Selected");
             scorer::filterColor = 'b';
         }
 
