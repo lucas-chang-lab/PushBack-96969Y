@@ -58,8 +58,8 @@ void usercontrol() {
 }
 
 int main() {
-    // pre_auton();
-    // Competition.autonomous(autonomous);
+    pre_auton();
+    Competition.autonomous(autonomous);
     Competition.drivercontrol(usercontrol);
     while(1) {
         //genutil::distanceTesting();

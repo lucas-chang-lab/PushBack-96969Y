@@ -49,7 +49,7 @@ namespace controls {
             doublePark::switchState();
         });
         Controller1.ButtonLeft.pressed([]() -> void { 
-            show++;
+            /*show++;
             switch(show){
             case 1:
                 img::drawLogo();
@@ -61,7 +61,7 @@ namespace controls {
                 show = 0;
                 Brain.Screen.clearScreen();
                 break;
-            }
+            }*/
         });
     }
 
