@@ -39,10 +39,9 @@ namespace controls {
              matchLoad::switchState(); 
         });
         Controller1.ButtonL1.pressed([]() -> void {
-
+            descore::switchState();
         });
         Controller1.ButtonUp.pressed([]() -> void {
-            descore::switchState();
         });
         Controller1.ButtonDown.pressed([]() -> void {
             
