@@ -111,13 +111,13 @@ namespace {
         if (fabs(rightPct) < 5) {
             RightMotors.stop(brake);
         } else {
-            RightMotors.spin(fwd, 390 * (rightPct / 100.0), rpm); // 390rpm * 4inch = 480rpm * 3.25inch
+            RightMotors.spin(fwd, 12.7 * (rightPct / 100.0), volt); // 390rpm * 4inch = 480rpm * 3.25inch
         }
 
         if (fabs(leftPct) < 5) {
             LeftMotors.stop(brake);
         } else {
-            LeftMotors.spin(fwd, 390 * (leftPct / 100.0), rpm);
+            LeftMotors.spin(fwd, 12.7 * (leftPct / 100.0), volt);
         }
         
     }
