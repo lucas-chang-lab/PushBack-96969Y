@@ -1,5 +1,5 @@
-# VEX PushBack
-  The repository for team 96969Y's robot program in 2025-26 VEX Robotics - PushBack.
+# VEX PushBack -- Mario Version
+  The first repository for team 96969Y's robot program in 2025-26 VEX Robotics - PushBack.
 
 ## Configuration
   Modify robot configurations in [`robot-config.cpp`](./src/robot-config.cpp).
